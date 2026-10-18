@@ -217,6 +217,10 @@ label.chk input{min-width:auto;flex:0}
 html.fx{scroll-behavior:auto}
 html.fx .hero h1 span{animation:none;opacity:1;transform:none}
 .hero h1 .ltr{display:inline-block}
+/* градиент переносим с слова на буквы: transform на букве двигает
+   её фон вместе с глифом, а clip родителя через transform не работает */
+html.fx .hero h1 .grad{background:none;animation:none}
+html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),var(--c));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shift 6s linear infinite}
 </style>
 </head>
 <body>
@@ -1291,7 +1295,7 @@ new MutationObserver(m=>m.forEach(r=>r.addedNodes.forEach(n=>{if(n.classList&&(n
   });
 
   gsap.timeline({defaults:{ease:'power3.out'}})
-    .from('.hero h1 .ltr',{y:90,opacity:0,rotate:8,duration:.9,stagger:.055})
+    .from('.hero h1 .ltr',{y:90,opacity:0,rotate:8,duration:.9,stagger:.055,onComplete:()=>gsap.set('.hero h1 .ltr',{clearProps:'transform'})})
     .from('.hero p',{y:30,opacity:0,duration:.7},'-=.4')
     .from('.hero .btn',{y:20,opacity:0,duration:.6},'-=.45')
     .from('.scene-wrap',{y:140,opacity:0,duration:1},'-=.5');

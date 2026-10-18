@@ -512,6 +512,7 @@ async function startDm(email){
 async function initMessenger(){
   if(!SB){
     $('#convList').innerHTML='<div class="mv"><span><small>Мессенджер включится после настройки Supabase: запустите schema.sql и вставьте anon key в index.html</small></span></div>';
+    $('#msgrMsgs').innerHTML='<div class="ev"><small>Здесь появятся переписки — личные и групповые, с персонажами вместо ников и реакциями. Нужен Supabase: schema.sql + anon key.</small></div>';
     $('#msgrForm').style.display='none';$('#newDm').style.display='none';$('#newGrp').style.display='none';return;
   }
   await membersMap();await loadConvs();await openConv('all');

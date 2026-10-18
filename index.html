@@ -264,6 +264,20 @@ label.chk input{min-width:auto;flex:0}
   .msgr:not(.list-mode) .msgr-side{display:none}
   #convBack{display:inline-block}
 }
+/* ---- бестиарий ---- */
+.fab{position:fixed;right:22px;bottom:22px;z-index:15;width:56px;height:56px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:24px;cursor:pointer;box-shadow:0 10px 30px -10px rgba(0,0,0,.6);transition:transform .2s}
+.fab:hover{transform:scale(1.12)}
+#beast{position:fixed;inset:0;z-index:36;background:#000a;display:none;place-items:center;padding:20px}
+#beast.on{display:grid}
+#beast>div{width:min(94vw,1000px);max-height:86vh;overflow-y:auto;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px}
+#beast header{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#beast h3.bh{font:800 24px Unbounded;margin:0}
+#beast .sub{color:var(--mut);font-size:13px;margin:8px 0 20px}
+#beast .team{cursor:pointer}
+#beast .chr{pointer-events:auto}
+.s-people .chr{cursor:pointer}
+#toast{position:fixed;left:50%;bottom:30px;translate:-50% 0;z-index:60;background:var(--fg);color:var(--bg);padding:12px 22px;border-radius:99px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .3s,translate .3s;max-width:88vw;text-align:center}
+#toast.on{opacity:1;translate:-50% -10px}
 /* ---- моушен: GSAP/Lenis, активен только если CDN загрузился ---- */
 html.fx{scroll-behavior:auto}
 html.fx .hero h1 span{animation:none;opacity:1;transform:none}
@@ -276,7 +290,7 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 </head>
 <body>
 <div id="load"><span>◐</span></div><div id="prog"></div><div id="glow"></div>
-<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#team">Команда</a><a href="#chat">Чат</a><a href="#help">Помощь</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
+<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#beast" id="beastOpen">Бестиарий</a><a href="#chat">Чат</a><a href="#help">Помощь</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
 
 <header class="hero">
 <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
@@ -316,28 +330,6 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 </div>
 <p class="note" id="note"></p></section>
 
-<section id="team"><h2 class="rv">Команда</h2>
-<div class="team">
-<article class="pc rv"><div class="chr chr-card" data-char="kazar"></div><h3>Влад «Казар»</h3><div class="tags"><span class="tag">#командир</span><span class="tag">#пожарная_часть</span><span class="tag">#музыка</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="alice"></div><h3>Алиса</h3><div class="tags"><span class="tag">#продавец</span><span class="tag">#музыка</span><span class="tag">#книги</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="misha"></div><h3>Миша «Ягодка»</h3><div class="tags"><span class="tag">#пожарная_часть</span><span class="tag">#игры</span><span class="tag">#компьютер</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="diana"></div><h3>Диана «Халабуда»</h3><div class="tags"><span class="tag">#провизор</span><span class="tag">#юг</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="artemiy"></div><h3>Артемий</h3><div class="tags"><span class="tag">#художник</span><span class="tag">#стиль</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="marina"></div><h3>Марина</h3><div class="tags"><span class="tag">#smm</span><span class="tag">#юг</span><span class="tag">#подруга_дианы</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="khariton"></div><h3>Миша «Харитон»</h3><div class="tags"><span class="tag">#умный</span><span class="tag">#всё_знает</span><span class="tag">#умное_место</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="natasha"></div><h3>Наташа</h3><div class="tags"><span class="tag">#полиглот</span><span class="tag">#китай</span><span class="tag">#умная</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="yulia"></div><h3>Юля</h3><div class="tags"><span class="tag">#удалёнка</span><span class="tag">#очки</span><span class="tag">#сестра_артемия</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="nikita"></div><h3>Никита</h3><div class="tags"><span class="tag">#кмс</span><span class="tag">#горные_лыжи</span><span class="tag">#начинающий_пожарный</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="lena"></div><h3>Лена</h3><div class="tags"><span class="tag">#крановщик</span><span class="tag">#найдёт_кого_угодно</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="kira"></div><h3>Кира «Жаба»</h3><div class="tags"><span class="tag">#турция</span><span class="tag">#загадочная</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="dima"></div><h3>Дима «Кубарь»</h3><div class="tags"><span class="tag">#творчество</span><span class="tag">#кожа</span><span class="tag">#линия_одежды</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="sasha"></div><h3>Саша «Тубас»</h3><div class="tags"><span class="tag">#инженер</span><span class="tag">#мужик</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="vitya"></div><h3>Витя</h3><div class="tags"><span class="tag">#дальний_восток</span><span class="tag">#проектирование</span><span class="tag">#стройка</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="vova"></div><h3>Вова</h3><div class="tags"><span class="tag">#пожарная_охрана</span><span class="tag">#машины</span><span class="tag">#bmw</span></div></article>
-<article class="pc rv"><div class="chr chr-card" data-char="jenya"></div><h3>Женя</h3><div class="tags"><span class="tag">#детские_праздники</span><span class="tag">#организатор</span></div></article>
-<article class="pc empty rv"><div>+ следующий друг<br><small>пришли фото</small></div></article>
-</div></section>
-
 <footer>dear friends · сделано для своих · v0.1</footer>
 <div id="lb"><img alt=""></div>
 <div id="gate" hidden><form id="gtForm"><span class="logo">◐ dear friends</span><h2>Вход для своих</h2>
@@ -347,6 +339,32 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 
 <div class="pick" id="pickDm"><form onsubmit="return false"><b>Кому напишем?</b><div class="pick-list" id="pickDmList"></div><button class="mini" type="button" id="pickDmClose" style="align-self:flex-start">закрыть</button></form></div>
 <div class="pick" id="pickGrp"><form id="pickGrpF"><b>Новая группа</b><input id="grpT" placeholder="Название группы" required><div class="pick-list" id="pickGrpList"></div><button class="btn" style="margin:4px 0 0">Создать группу</button></form></div>
+
+<button class="fab" id="beastFab" type="button" title="Бестиарий">🐾</button>
+<div id="beast"><div>
+<header><h3 class="bh">Бестиарий</h3><button class="mini" id="beastClose" type="button">закрыть ✕</button></header>
+<div class="sub">Все герои клуба. Нажми на героя — откроется личный чат, если этот персонаж уже закреплён за другом. Героев на диване тоже можно кликать.</div>
+<div class="team">
+<article class="pc"><div class="chr chr-card" data-char="kazar"></div><h3>Влад «Казар»</h3><div class="tags"><span class="tag">#командир</span><span class="tag">#пожарная_часть</span><span class="tag">#музыка</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="alice"></div><h3>Алиса</h3><div class="tags"><span class="tag">#продавец</span><span class="tag">#музыка</span><span class="tag">#книги</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="misha"></div><h3>Миша «Ягодка»</h3><div class="tags"><span class="tag">#пожарная_часть</span><span class="tag">#игры</span><span class="tag">#компьютер</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="diana"></div><h3>Диана «Халабуда»</h3><div class="tags"><span class="tag">#провизор</span><span class="tag">#юг</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="artemiy"></div><h3>Артемий</h3><div class="tags"><span class="tag">#художник</span><span class="tag">#стиль</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="marina"></div><h3>Марина</h3><div class="tags"><span class="tag">#smm</span><span class="tag">#юг</span><span class="tag">#подруга_дианы</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="khariton"></div><h3>Миша «Харитон»</h3><div class="tags"><span class="tag">#умный</span><span class="tag">#всё_знает</span><span class="tag">#умное_место</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="natasha"></div><h3>Наташа</h3><div class="tags"><span class="tag">#полиглот</span><span class="tag">#китай</span><span class="tag">#умная</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="yulia"></div><h3>Юля</h3><div class="tags"><span class="tag">#удалёнка</span><span class="tag">#очки</span><span class="tag">#сестра_артемия</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="nikita"></div><h3>Никита</h3><div class="tags"><span class="tag">#кмс</span><span class="tag">#горные_лыжи</span><span class="tag">#начинающий_пожарный</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="lena"></div><h3>Лена</h3><div class="tags"><span class="tag">#крановщик</span><span class="tag">#найдёт_кого_угодно</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="kira"></div><h3>Кира «Жаба»</h3><div class="tags"><span class="tag">#турция</span><span class="tag">#загадочная</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="dima"></div><h3>Дима «Кубарь»</h3><div class="tags"><span class="tag">#творчество</span><span class="tag">#кожа</span><span class="tag">#линия_одежды</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="sasha"></div><h3>Саша «Тубас»</h3><div class="tags"><span class="tag">#инженер</span><span class="tag">#мужик</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="vitya"></div><h3>Витя</h3><div class="tags"><span class="tag">#дальний_восток</span><span class="tag">#проектирование</span><span class="tag">#стройка</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="vova"></div><h3>Вова</h3><div class="tags"><span class="tag">#пожарная_охрана</span><span class="tag">#машины</span><span class="tag">#bmw</span></div></article>
+<article class="pc"><div class="chr chr-card" data-char="jenya"></div><h3>Женя</h3><div class="tags"><span class="tag">#детские_праздники</span><span class="tag">#организатор</span></div></article>
+</div>
+</div></div>
+<div id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
@@ -392,6 +410,15 @@ async function renderGal(rows){
 // ---- мессенджер: изюминка — сообщения с персонажами вместо ников
 const RXS=['❤️','😂','🔥','👍','😮'];
 const msgr={convs:[],active:'all',mem:new Map(),rx:{}};
+async function membersMap(){
+  if(!SB)return;
+  const {data}=await SB.from('members').select('email,name,char');
+  msgr.mem=new Map((data||[]).map(m=>[(m.email||'').toLowerCase(),m]));
+  msgr.charOf=new Map();
+  (data||[]).forEach(m=>{if(m.char)msgr.charOf.set(m.char,(m.email||'').toLowerCase())});
+}
+function AVA(email){const m=email?msgr.mem.get(email):null;
+  return m&&m.char&&CHARS[m.char]?`<span class="mava">${CHARS[m.char]()}</span>`:'<span class="mava mava-x">◐</span>'}
 function memberByName(n){for(const m of msgr.mem.values())if(m.name===n)return m;return null}
 function avaFor(r){const m=r.author_email?msgr.mem.get(r.author_email):memberByName(r.name);
   return m&&m.char&&CHARS[m.char]?`<span class="mava">${CHARS[m.char]()}</span>`:'<span class="mava mava-x">◐</span>'}
@@ -509,6 +536,30 @@ async function startDm(email){
   }
   if(c){await loadConvs();openConv(c.id)}
 }
+// ---- бестиарий и переход «персонаж → чат»
+let toastT;function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('on'),2800)}
+const beast=$('#beast');
+function openBeast(){beast.classList.add('on')}
+function closeBeast(){beast.classList.remove('on')}
+$('#beastOpen').addEventListener('click',e=>{e.preventDefault();openBeast()});
+$('#beastFab').onclick=openBeast;
+$('#beastClose').onclick=closeBeast;
+beast.addEventListener('click',e=>{if(e.target===beast)closeBeast()});
+addEventListener('keydown',e=>{if(e.key==='Escape'){closeBeast();$('#pickDm').classList.remove('on');$('#pickGrp').classList.remove('on')}});
+async function charToDm(char){
+  if(!SB||!myEmail){toast('Войди в клуб, чтобы писать героям');return}
+  const em=msgr.charOf&&msgr.charOf.get(char);
+  if(!em){toast('Этот герой пока не занят — назначь его другу в Supabase (members.char)');return}
+  closeBeast();await startDm(em);
+  $('#chat').scrollIntoView({behavior:'smooth'});
+}
+document.addEventListener('click',e=>{
+  const c=e.target.closest('.chr[data-char]');
+  if(c){charToDm(c.dataset.char);return}
+  const pc=e.target.closest('#beast .pc');
+  const cc=pc&&pc.querySelector('.chr-card');
+  if(cc)charToDm(cc.dataset.char);
+});
 async function initMessenger(){
   if(!SB){
     $('#convList').innerHTML='<div class="mv"><span><small>Мессенджер включится после настройки Supabase: запустите schema.sql и вставьте anon key в index.html</small></span></div>';

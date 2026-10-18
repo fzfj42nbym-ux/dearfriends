@@ -213,6 +213,57 @@ label.chk input{min-width:auto;flex:0}
 .hbtn{margin-top:14px;background:var(--line);color:var(--fg);border:0;border-radius:99px;padding:9px 18px;font:500 13px Inter;cursor:pointer;transition:transform .2s}
 .hbtn:hover{transform:scale(1.05)}
 .hbtn.on{background:linear-gradient(135deg,var(--b),var(--a));color:#fff}
+/* ---- мессенджер ---- */
+.mini{background:none;border:1px solid var(--line);color:var(--fg);border-radius:99px;padding:6px 12px;font:500 12px Inter;cursor:pointer;white-space:nowrap}
+.mini:hover{border-color:var(--fg)}
+.msgr{display:grid;grid-template-columns:300px 1fr;gap:14px;max-width:1100px}
+.msgr-side,.msgr-main{background:var(--card);border:1px solid var(--line);border-radius:26px;display:flex;flex-direction:column;overflow:hidden}
+.msgr-side{height:560px}
+.msgr-main{height:560px}
+.msgr-head{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;justify-content:space-between}
+.msgr-head b{font:800 15px Unbounded}
+.msgr-list{overflow-y:auto;flex:1;padding:8px;display:flex;flex-direction:column;gap:4px}
+.mv{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:16px;cursor:pointer;border:1px solid transparent}
+.mv:hover{background:var(--line)}
+.mv.on{background:var(--line);border-color:var(--b)}
+.mv b{font-size:14px;display:block}
+.mv small{color:var(--mut);display:block;font-size:12px}
+.mava{width:38px;height:38px;border-radius:50%;background:var(--bg);display:inline-grid;place-items:center;overflow:hidden;flex:none}
+.mava svg{height:34px;width:auto}
+.mava-x{font-size:16px}
+#msgrMsgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:16px}
+.mm{max-width:78%;padding:10px 14px 12px;border-radius:18px;background:var(--line);position:relative;animation:pop .35s cubic-bezier(.2,1.4,.4,1);word-break:break-word}
+.mm.me{align-self:flex-end;background:linear-gradient(135deg,var(--b),var(--a));color:#fff}
+.mm b{font-size:12px;opacity:.85;display:flex;align-items:center;gap:6px;margin-bottom:2px}
+.mm .mava{width:22px;height:22px;background:var(--bg)}
+.mm .mava svg{height:20px}
+.mm .mava-x{font-size:10px}
+.mm .rx{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.mm .rx span{background:rgba(0,0,0,.25);border-radius:99px;padding:2px 8px;font-size:12px;cursor:pointer}
+.mm.me .rx span{background:rgba(255,255,255,.22)}
+.rxbar{display:flex;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:2px 6px;position:absolute;top:-18px;right:10px;opacity:0;transition:opacity .2s;box-shadow:0 6px 20px -8px rgba(0,0,0,.5)}
+.mm:hover .rxbar{opacity:1}
+.rxbar button{background:none;border:0;cursor:pointer;font-size:14px;padding:0 2px}
+.msgr-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+#convBack{display:none}
+.pick{position:fixed;inset:0;z-index:35;background:#000a;display:none;place-items:center}
+.pick.on{display:grid}
+.pick form{width:min(92vw,420px);background:var(--card);border:1px solid var(--line);border-radius:26px;padding:24px;display:flex;flex-direction:column;gap:10px;max-height:86vh;overflow:auto}
+.pick form>b{font:800 18px Unbounded}
+.pick-list{display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.pick-list label{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;cursor:pointer}
+.pick-list label:hover{background:var(--line)}
+.pick-list .mava{width:30px;height:30px}
+.pick-list .mava svg{height:26px}
+.pick-list small{color:var(--mut);font-size:12px;display:block}
+@media(max-width:800px){
+  .msgr{grid-template-columns:1fr}
+  .msgr-side{height:auto;max-height:320px}
+  .msgr-main{height:480px}
+  .msgr.list-mode .msgr-main{display:none}
+  .msgr:not(.list-mode) .msgr-side{display:none}
+  #convBack{display:inline-block}
+}
 /* ---- моушен: GSAP/Lenis, активен только если CDN загрузился ---- */
 html.fx{scroll-behavior:auto}
 html.fx .hero h1 span{animation:none;opacity:1;transform:none}
@@ -257,8 +308,12 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 <div class="gal" id="gal"><div class="ph"></div><div class="ph" style="height:260px"></div><div class="ph" style="height:140px"></div></div></section>
 
 <section id="chat"><h2 class="rv">Чат</h2>
-<div class="chat rv"><div id="msgs"></div>
-<form class="add" id="chForm" style="margin:12px 0 0"><input id="chT" placeholder="Сообщение…" autocomplete="off"><button class="btn" style="margin:0">→</button></form></div>
+<div class="msgr rv list-mode" id="msgr">
+<aside class="msgr-side"><div class="msgr-head"><b>Чаты</b><span><button class="mini" id="newDm" type="button">＋ диалог</button><button class="mini" id="newGrp" type="button">＋ группа</button></span></div><div class="msgr-list" id="convList"></div></aside>
+<div class="msgr-main"><div class="msgr-head"><button class="mini" id="convBack" type="button">← чаты</button><b id="convTitle">—</b></div>
+<div id="msgrMsgs"></div>
+<form class="msgr-form" id="msgrForm"><input id="msgrT" placeholder="Сообщение…" autocomplete="off"><button class="btn" style="margin:0">→</button></form></div>
+</div>
 <p class="note" id="note"></p></section>
 
 <section id="team"><h2 class="rv">Команда</h2>
@@ -290,6 +345,9 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 <input id="gtE" type="email" placeholder="твоя@почта" required><button class="btn">Прислать ссылку →</button>
 <p class="note" id="gtMsg"></p></form></div>
 
+<div class="pick" id="pickDm"><form onsubmit="return false"><b>Кому напишем?</b><div class="pick-list" id="pickDmList"></div><button class="mini" type="button" id="pickDmClose" style="align-self:flex-start">закрыть</button></form></div>
+<div class="pick" id="pickGrp"><form id="pickGrpF"><b>Новая группа</b><input id="grpT" placeholder="Название группы" required><div class="pick-list" id="pickGrpList"></div><button class="btn" style="margin:4px 0 0">Создать группу</button></form></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
@@ -314,7 +372,7 @@ const local={ev:[],ch:[]};
 function fallback(){
   $('#note').textContent='Общее хранилище ещё не подключено (нет anon key) — сейчас демо-режим без синхронизации.';
   $('#hpList').innerHTML='<div class="ev"><small>Просьбы о помощи появятся после подключения клуба</small></div>';
-  renderEv([]);
+  renderEv([]);initMessenger();
 }
 // --- отрисовка
 function renderEv(rows){
@@ -331,9 +389,30 @@ async function renderGal(rows){
     return data?data.signedUrl:''}));
   $('#gal').innerHTML=urls.filter(Boolean).map(u=>`<img loading="lazy" src="${u}" alt="">`).join('');
 }
+// ---- мессенджер: изюминка — сообщения с персонажами вместо ников
+const RXS=['❤️','😂','🔥','👍','😮'];
+const msgr={convs:[],active:'all',mem:new Map(),rx:{}};
+function memberByName(n){for(const m of msgr.mem.values())if(m.name===n)return m;return null}
+function avaFor(r){const m=r.author_email?msgr.mem.get(r.author_email):memberByName(r.name);
+  return m&&m.char&&CHARS[m.char]?`<span class="mava">${CHARS[m.char]()}</span>`:'<span class="mava mava-x">◐</span>'}
+async function loadRx(ids){
+  msgr.rx={};if(!ids.length)return;
+  const {data}=await SB.from('message_reactions').select('message_id,email,emoji').in('message_id',ids);
+  (data||[]).forEach(r=>{const o=msgr.rx[r.message_id]||(msgr.rx[r.message_id]={c:{},mine:new Set()});
+    o.c[r.emoji]=(o.c[r.emoji]||0)+1;if(r.email===myEmail)o.mine.add(r.emoji)});
+}
 function renderMsgs(rows){
-  rows=rows||[];const box=$('#msgs');
-  box.innerHTML=rows.map(x=>`<div class="m ${x.name===nick?'me':''}"><b>${esc(x.name)}</b>${esc(x.text)}</div>`).join('');
+  rows=rows||[];const box=$('#msgrMsgs');
+  if(!rows.length){box.innerHTML='<div class="ev"><small>Пока пусто — напиши первым →</small></div>';return}
+  const isAll=msgr.active==='all';
+  box.innerHTML=rows.map(r=>{
+    const me=isAll?r.name===nick:r.author_email===myEmail;
+    const who=isAll?r.name:(r.author_name||'');
+    const ro=msgr.rx[r.id];
+    const rx=!isAll&&ro?Object.entries(ro.c).map(([e,n])=>`<span data-rx="${r.id}|${e}">${e}${n>1?'&nbsp;'+n:''}</span>`).join(''):'';
+    const bar=isAll?'':`<span class="rxbar">${RXS.map(e=>`<button type="button" data-sendrx="${r.id}|${e}">${e}</button>`).join('')}</span>`;
+    return `<div class="mm ${me?'me':''}"><b>${avaFor(r)}${esc(who)}</b>${esc(r.text)}${rx?`<span class="rx">${rx}</span>`:''}${bar}</div>`;
+  }).join('');
   box.scrollTop=box.scrollHeight;
 }
 async function loadHelp(){
@@ -347,18 +426,102 @@ async function loadHelp(){
   L.innerHTML=hl.map(x=>`<div class="ev${x.urgent?' urg':''}"><div class="d">${x.urgent?'🆘 SOS':'Просьба'}</div><h3>${esc(x.title)}</h3>${x.text?`<small>${esc(x.text)}</small>`:''}<button class="hbtn${mine.has(x.id)?' on':''}" data-hp="${x.id}">🤝 ${mine.has(x.id)?'Ты откликнулся':'Могу помочь'}${cnt[x.id]?` · ${cnt[x.id]}`:''}</button></div>`).join('');
 }
 async function loadEvents(){if(!SB)return;const {data}=await SB.from('events').select('*').order('date').limit(30);renderEv(data||[])}
-async function loadMsgs(){if(!SB)return;const {data}=await SB.from('chat').select('*').order('ts',{ascending:true}).limit(100);renderMsgs(data||[])}
+async function loadConvs(){
+  if(!SB)return;
+  const {data:mine}=await SB.from('conversation_members').select('conversation_id').eq('email',myEmail);
+  const ids=(mine||[]).map(r=>r.conversation_id);
+  if(!ids.length){msgr.convs=[];renderConvList();return}
+  const [{data:cs},{data:cms}]=await Promise.all([
+    SB.from('conversations').select('*').in('id',ids),
+    SB.from('conversation_members').select('conversation_id,email').in('conversation_id',ids)]);
+  msgr.convs=(cs||[]).map(c=>{
+    const parts=(cms||[]).filter(r=>r.conversation_id===c.id).map(r=>r.email);
+    const other=parts.find(e=>e!==myEmail)||parts[0];
+    const om=other?msgr.mem.get(other):null;
+    return {...c,parts,who:c.kind==='dm'?(om?om.name:'друг'):(c.title||'группа')};
+  });
+  renderConvList();
+}
+function renderConvList(){
+  const L=$('#convList');
+  const items=[{id:'all',who:'Все друзья',kind:'all'}].concat(msgr.convs.slice().reverse());
+  L.innerHTML=items.map(c=>{
+    const on=msgr.active===c.id?' on':'';
+    const other=c.kind==='dm'?(c.parts||[]).find(e=>e!==myEmail):null;
+    const ava=c.kind==='all'?'<span class="mava mava-x">◐</span>':c.kind==='group'?'<span class="mava mava-x">👥</span>':AVA(other);
+    const sub=c.kind==='all'?'общий чат клуба':c.kind==='group'?'группа · '+((c.parts||[]).length)+' чел.':'личный чат';
+    return `<div class="mv${on}" data-cid="${c.id}">${ava}<span><b>${esc(c.who)}</b><small>${sub}</small></span></div>`;
+  }).join('');
+}
+async function openConv(id){
+  msgr.active=id;$('#msgr').classList.remove('list-mode');renderConvList();
+  const c=msgr.convs.find(x=>x.id===id);
+  $('#convTitle').textContent=id==='all'?'Все друзья':(c?c.who:'—');
+  $('#msgrMsgs').innerHTML='<div class="ev"><small>Загружаю…</small></div>';
+  let rows=[];
+  if(id==='all'){({data:rows}=await SB.from('chat').select('*').order('ts',{ascending:true}).limit(100))}
+  else{({data:rows}=await SB.from('messages').select('*').eq('conversation_id',id).order('ts',{ascending:true}).limit(200))}
+  rows=rows||[];
+  await loadRx(rows.map(r=>r.id).filter(Boolean));
+  renderMsgs(rows);
+}
+async function refreshActive(){if(!SB||!msgr.active)return;await openConv(msgr.active)}
+$('#msgrForm').onsubmit=async e=>{e.preventDefault();
+  const t=$('#msgrT').value.trim();if(!t||!SB)return;$('#msgrT').value='';
+  if(msgr.active==='all')await SB.from('chat').insert({name:nick||'Гость',text:t.slice(0,500)});
+  else await SB.from('messages').insert({conversation_id:msgr.active,author_email:myEmail,author_name:nick||'Гость',text:t.slice(0,500)});
+};
+$('#convList').addEventListener('click',e=>{const v=e.target.closest('.mv');if(v&&v.dataset.cid)openConv(v.dataset.cid)});
+$('#convBack').onclick=()=>$('#msgr').classList.add('list-mode');
+// --- адресная книга: личный диалог или группа в любом составе
+function pickRows(mode){
+  const rows=[...msgr.mem.values()].filter(m=>(m.email||'').toLowerCase()!==myEmail)
+    .map(m=>{const ava=m.char&&CHARS[m.char]?`<span class="mava">${CHARS[m.char]()}</span>`:'<span class="mava mava-x">◐</span>';
+      return mode==='dm'
+        ?`<label data-em="${esc(m.email)}">${ava}<span><b>${esc(m.name||m.email)}</b></span></label>`
+        :`<label><input type="checkbox" value="${esc(m.email)}">${ava}<span><b>${esc(m.name||m.email)}</b></span></label>`;
+    });
+  return rows.join('')||'<small>Пока нет других участников клуба</small>';
+}
+$('#newDm').onclick=()=>{if(!SB)return;$('#pickDmList').innerHTML=pickRows('dm');$('#pickDm').classList.add('on')};
+$('#pickDmClose').onclick=()=>$('#pickDm').classList.remove('on');
+$('#pickDmList').onclick=async e=>{const l=e.target.closest('label[data-em]');if(!l)return;
+  $('#pickDm').classList.remove('on');await startDm(l.dataset.em)};
+$('#newGrp').onclick=()=>{if(!SB)return;$('#pickGrpList').innerHTML=pickRows('grp');$('#pickGrp').classList.add('on')};
+$('#pickGrpF').onsubmit=async e=>{e.preventDefault();
+  const title=$('#grpT').value.trim();if(!title)return;
+  const chosen=[...$('#pickGrpList').querySelectorAll('input:checked')].map(i=>i.value);
+  const {data:c}=await SB.from('conversations').insert({kind:'group',title,created_by:myEmail}).select('id').single();
+  if(!c)return;
+  await SB.from('conversation_members').insert([...new Set([myEmail,...chosen])].map(em=>({conversation_id:c.id,email:em})));
+  $('#pickGrp').classList.remove('on');$('#grpT').value='';
+  await loadConvs();openConv(c.id);
+};
+async function startDm(email){
+  email=(email||'').toLowerCase();if(!email||email===myEmail)return;
+  const key=[myEmail,email].sort().join('|');
+  let {data:c}=await SB.from('conversations').select('id').eq('pair_key',key).maybeSingle();
+  if(!c){
+    const ins=await SB.from('conversations').insert({kind:'dm',pair_key:key,created_by:myEmail}).select('id').single();
+    if(ins.data){c=ins.data;
+      await SB.from('conversation_members').insert([{conversation_id:c.id,email:myEmail},{conversation_id:c.id,email}]);
+    }else{({data:c}=await SB.from('conversations').select('id').eq('pair_key',key).maybeSingle())}
+  }
+  if(c){await loadConvs();openConv(c.id)}
+}
+async function initMessenger(){
+  if(!SB){
+    $('#convList').innerHTML='<div class="mv"><span><small>Мессенджер включится после настройки Supabase: запустите schema.sql и вставьте anon key в index.html</small></span></div>';
+    $('#msgrForm').style.display='none';$('#newDm').style.display='none';$('#newGrp').style.display='none';return;
+  }
+  await membersMap();await loadConvs();await openConv('all');
+}
 async function loadPhotos(){if(!SB)return;const {data}=await SB.from('photos').select('*').order('ts',{ascending:false}).limit(60);await renderGal(data||[])}
 // --- формы
 $('#evForm').onsubmit=async e=>{e.preventDefault();
   const x={title:$('#evT').value,date:$('#evD').value,place:$('#evP').value};
   e.target.reset();
   if(SB){await SB.from('events').insert({...x,by:myEmail})}else{local.ev.push(x);renderEv(local.ev)}
-};
-$('#chForm').onsubmit=async e=>{e.preventDefault();
-  const t=$('#chT').value.trim();if(!t)return;$('#chT').value='';
-  const x={name:nick||'Гость',text:t.slice(0,500)};
-  if(SB){await SB.from('chat').insert(x)}else{local.ch.push({...x,ts:Date.now()});renderMsgs(local.ch)}
 };
 $('#hpForm').onsubmit=async e=>{e.preventDefault();
   if(!SB)return;
@@ -383,7 +546,13 @@ document.addEventListener('click',async e=>{
   if(b&&SB){const id=+b.dataset.hp;
     if(b.classList.contains('on'))await SB.from('help_resp').delete().eq('help_id',id).eq('email',myEmail);
     else await SB.from('help_resp').insert({help_id:id,email:myEmail});
-    loadHelp()}
+    loadHelp();return}
+  const rx=e.target.closest('[data-sendrx],[data-rx]');
+  if(rx&&SB){const [mid,emoji]=rx.dataset.sendrx?rx.dataset.sendrx.split('|'):rx.dataset.rx.split('|');
+    const o=msgr.rx[+mid];
+    if(o&&o.mine.has(emoji))await SB.from('message_reactions').delete().eq('message_id',+mid).eq('email',myEmail).eq('emoji',emoji);
+    else{const r=await SB.from('message_reactions').insert({message_id:+mid,email:myEmail,emoji});if(r.error&&r.error.code==='23505')await SB.from('message_reactions').delete().eq('message_id',+mid).eq('email',myEmail).eq('emoji',emoji)}
+    refreshActive()}
 });
 // --- вход/выход и запуск
 const gate=$('#gate');
@@ -397,7 +566,7 @@ async function startClub(session){
   if(me&&me.name){nick=me.name;try{localStorage.setItem('nick',nick)}catch(e){}}
   $('#user').textContent=nick||myEmail;$('#out').hidden=false;
   if(!me)$('#note').textContent='Вход выполнен, но этой почты пока нет в списке участников — попроси добавить: '+myEmail;
-  loadEvents();loadMsgs();loadPhotos();loadHelp();
+  loadEvents();loadPhotos();loadHelp();initMessenger();
 }
 let started=false;
 async function boot(){
@@ -416,7 +585,11 @@ $('#out').onclick=async()=>{if(SB)await SB.auth.signOut();location.reload()};
 boot();
 if(SB){
   SB.channel('df')
-    .on('postgres_changes',{event:'*',schema:'public',table:'chat'},()=>loadMsgs())
+    .on('postgres_changes',{event:'*',schema:'public',table:'chat'},()=>{if(msgr.active==='all')refreshActive()})
+    .on('postgres_changes',{event:'*',schema:'public',table:'messages'},p=>{if(p.new&&p.new.conversation_id===msgr.active)refreshActive()})
+    .on('postgres_changes',{event:'*',schema:'public',table:'message_reactions'},()=>{if(msgr.active!=='all')refreshActive()})
+    .on('postgres_changes',{event:'*',schema:'public',table:'conversations'},()=>loadConvs())
+    .on('postgres_changes',{event:'*',schema:'public',table:'conversation_members'},()=>loadConvs())
     .on('postgres_changes',{event:'*',schema:'public',table:'events'},()=>loadEvents())
     .on('postgres_changes',{event:'*',schema:'public',table:'help'},()=>loadHelp())
     .on('postgres_changes',{event:'*',schema:'public',table:'photos'},()=>loadPhotos())

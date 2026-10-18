@@ -13,6 +13,10 @@ Dear Friends is a Russian-language illustrated friends-club site. The core visua
 - Backend: Supabase (auth via magic-link email, Postgres tables with RLS,
   private `photos` storage bucket, realtime). Config: `SB_URL`/`SB_KEY`
   constants in `index.html`; schema lives in `supabase/schema.sql`.
+- Messenger: `conversations`/`conversation_members`/`messages`/
+  `message_reactions` tables; the global chat is the `chat` table shown as
+  the "Все друзья" conversation. DMs are deduplicated via `conversations.pair_key`.
+  Member avatars come from `members.char` (a character key from `index.html`).
 - Motion: CSS keyframes + GSAP/ScrollTrigger + Lenis via CDN, with graceful
   fallback (no CDN or `prefers-reduced-motion` → no effects). Design language
   and motion rules live in `DESIGN.md` — read it before visual changes.

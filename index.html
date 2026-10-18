@@ -364,7 +364,7 @@ document.addEventListener('click',e=>{if(e.target.matches('.gal img')){$('#lb im
 
 // ---- Supabase: вход для своих, общие данные, фото, помощь
 const SB_URL='https://dlvjdnligiizwnpibwin.supabase.co';
-const SB_KEY='PASTE_ANON_KEY_HERE'; // anon key — публичный, публиковать можно
+const SB_KEY='sb_publishable_FIV_gWZaY8E2MY9AiiNP9Q_dKO47wgS'; // publishable key — публичный, публиковать можно
 const SB=(typeof supabase!=='undefined')&&SB_KEY!=='PASTE_ANON_KEY_HERE'
   ?supabase.createClient(SB_URL,SB_KEY):null;
 let myEmail='';

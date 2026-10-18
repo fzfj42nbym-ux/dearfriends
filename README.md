@@ -8,6 +8,8 @@
 - GitHub: https://github.com/fzfj42nbym-ux/dearfriends
 - Главная страница: `index.html`.
 - Сборка не требуется: обычные HTML, CSS и JavaScript.
+- Локальный запуск (Windows, без установок):
+  `powershell -NoProfile -ExecutionPolicy Bypass -File serve.ps1` → http://127.0.0.1:8642
 
 ## Публикация
 

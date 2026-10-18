@@ -190,11 +190,34 @@ footer{position:relative}
 .solo.r{transform:rotate(-3deg);margin-right:0;margin-left:calc(var(--sh)*.68*.4545*-.15);--d:-1.3s}
 .solo.r[style*="--big"]{transform:rotate(-3deg) scale(1.07)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.hero h1 span{opacity:1;transform:none}}
+
+/* ---- вход для своих (Supabase) ---- */
+#gate{position:fixed;inset:0;z-index:40;background:var(--bg);display:grid;place-items:center;transition:opacity .4s,visibility .4s}
+#gate[hidden]{display:none}
+#gate.off{opacity:0;visibility:hidden}
+#gate form{width:min(92vw,420px);background:var(--card);border:1px solid var(--line);border-radius:26px;padding:36px 28px;display:flex;flex-direction:column;gap:14px}
+#gate h2{margin:4px 0 0;font-size:28px}
+#gate p{color:var(--mut);font-size:14px;margin:0}
+#gate .btn{margin:0;text-align:center}
+#user{color:var(--mut);font-size:13px;margin-left:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
+#out{background:none;border:1px solid var(--line);color:var(--mut);border-radius:99px;padding:6px 12px;margin-left:8px;font:500 12px Inter;cursor:pointer}
+#out:hover{color:var(--fg);border-color:var(--fg)}
+/* ---- секция помощи ---- */
+label.chk{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:14px;padding:0 8px;white-space:nowrap}
+label.chk input{min-width:auto;flex:0}
+.ev{position:relative}
+.del{position:absolute;top:14px;right:14px;background:none;border:1px solid var(--line);color:var(--mut);border-radius:99px;width:26px;height:26px;line-height:1;cursor:pointer;font-size:12px}
+.del:hover{color:var(--a);border-color:var(--a)}
+.ev.urg{border-color:var(--a);box-shadow:0 0 0 1px var(--a),0 14px 44px -20px var(--a)}
+.ev.urg .d{color:var(--a)}
+.hbtn{margin-top:14px;background:var(--line);color:var(--fg);border:0;border-radius:99px;padding:9px 18px;font:500 13px Inter;cursor:pointer;transition:transform .2s}
+.hbtn:hover{transform:scale(1.05)}
+.hbtn.on{background:linear-gradient(135deg,var(--b),var(--a));color:#fff}
 </style>
 </head>
 <body>
 <div id="load"><span>◐</span></div><div id="prog"></div><div id="glow"></div>
-<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#team">Команда</a><a href="#chat">Чат</a><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
+<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#team">Команда</a><a href="#chat">Чат</a><a href="#help">Помощь</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
 
 <header class="hero">
 <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
@@ -216,6 +239,10 @@ footer{position:relative}
 <section id="events"><h2 class="rv">Анонсы</h2>
 <form class="add rv" id="evForm"><input id="evT" placeholder="Название" required><input id="evD" type="date" required><input id="evP" placeholder="Где"><button class="btn" style="margin:0">Добавить</button></form>
 <div class="events" id="evList"></div></section>
+
+<section id="help"><h2 class="rv">Помощь и сборы</h2>
+<form class="add rv" id="hpForm"><input id="hpT" placeholder="Что нужно (например: перевезти диван / сбор на подарок)" required><input id="hpD" placeholder="Подробности"><label class="chk"><input id="hpU" type="checkbox"> срочно</label><button class="btn" style="margin:0">Попросить</button></form>
+<div class="events" id="hpList"></div></section>
 
 <section id="gallery"><h2 class="rv">Галерея</h2>
 <p class="rv" style="margin-bottom:20px"><label class="btn" style="margin:0">+ Загрузить фото<input id="file" type="file" accept="image/*" multiple hidden></label></p>
@@ -250,7 +277,12 @@ footer{position:relative}
 
 <footer>dear friends · сделано для своих · v0.1</footer>
 <div id="lb"><img alt=""></div>
+<div id="gate" hidden><form id="gtForm"><span class="logo">◐ dear friends</span><h2>Вход для своих</h2>
+<p>Введи свою почту — пришлём ссылку для входа. Пароль не нужен, но пускать будем только тех, кто в списке участников клуба.</p>
+<input id="gtE" type="email" placeholder="твоя@почта" required><button class="btn">Прислать ссылку →</button>
+<p class="note" id="gtMsg"></p></form></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -261,57 +293,124 @@ const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.c
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 document.addEventListener('click',e=>{if(e.target.matches('.gal img')){$('#lb img').src=e.target.src;$('#lb').classList.add('on')}else if(e.target.closest('#lb'))$('#lb').classList.remove('on')});
 
-let db=null,assets=null;
-function renderEv(docs){
-  const L=$('#evList');
-  if(!docs.length){L.innerHTML='<div class="ev"><small>Пока пусто — добавь первое событие</small></div>';return}
-  L.innerHTML=docs.map(d=>{const x=d.data();const dt=new Date(x.date).toLocaleDateString('ru',{day:'numeric',month:'long'});
-  return `<div class="ev"><div class="d">${esc(dt).toUpperCase()}</div><h3>${esc(x.title)}</h3><small>${esc(x.place||'')}</small></div>`}).join('');
-}
-function renderGal(docs){
-  if(!docs.length)return;
-  $('#gal').innerHTML=docs.map(d=>`<img loading="lazy" src="${esc(d.data().url)}" alt="">`).join('');
-}
-function renderMsgs(docs){
-  const box=$('#msgs');
-  box.innerHTML=docs.map(d=>{const x=d.data();return `<div class="m ${x.name===nick?'me':''}"><b>${esc(x.name)}</b>${esc(x.text)}</div>`}).join('');
-  box.scrollTop=box.scrollHeight;
-}
-// local fallback if shared storage is unavailable
+// ---- Supabase: вход для своих, общие данные, фото, помощь
+const SB_URL='https://dlvjdnligiizwnpibwin.supabase.co';
+const SB_KEY='PASTE_ANON_KEY_HERE'; // anon key — публичный, публиковать можно
+const SB=(typeof supabase!=='undefined')&&SB_KEY!=='PASTE_ANON_KEY_HERE'
+  ?supabase.createClient(SB_URL,SB_KEY):null;
+let myEmail='';
 const local={ev:[],ch:[]};
-const wrap=a=>a.map(x=>({data:()=>x}));
 function fallback(){
-  $('#note').textContent='Общее хранилище пока не подключено — события и чат в этой версии не синхронизируются между устройствами.';
+  $('#note').textContent='Общее хранилище ещё не подключено (нет anon key) — сейчас демо-режим без синхронизации.';
+  $('#hpList').innerHTML='<div class="ev"><small>Просьбы о помощи появятся после подключения клуба</small></div>';
   renderEv([]);
 }
+// --- отрисовка
+function renderEv(rows){
+  rows=rows||[];const L=$('#evList');
+  if(!rows.length){L.innerHTML='<div class="ev"><small>Пока пусто — добавь первое событие</small></div>';return}
+  L.innerHTML=rows.map(x=>{const dt=new Date(x.date+'T00:00:00').toLocaleDateString('ru',{day:'numeric',month:'long'});
+  const del=SB&&x.by&&x.by===myEmail?`<button class="del" data-ev="${x.id}" title="Удалить">✕</button>`:'';
+  return `<div class="ev"><div class="d">${esc(dt).toUpperCase()}</div><h3>${esc(x.title)}</h3><small>${esc(x.place||'')}</small>${del}</div>`}).join('');
+}
+async function renderGal(rows){
+  rows=rows||[];if(!rows.length)return;
+  const urls=await Promise.all(rows.map(async r=>{
+    const {data}=await SB.storage.from('photos').createSignedUrl(r.path,3600);
+    return data?data.signedUrl:''}));
+  $('#gal').innerHTML=urls.filter(Boolean).map(u=>`<img loading="lazy" src="${u}" alt="">`).join('');
+}
+function renderMsgs(rows){
+  rows=rows||[];const box=$('#msgs');
+  box.innerHTML=rows.map(x=>`<div class="m ${x.name===nick?'me':''}"><b>${esc(x.name)}</b>${esc(x.text)}</div>`).join('');
+  box.scrollTop=box.scrollHeight;
+}
+async function loadHelp(){
+  const [{data:rows},{data:rs}]=await Promise.all([
+    SB.from('help').select('*').order('ts',{ascending:false}).limit(20),
+    SB.from('help_resp').select('help_id,email')]);
+  const mine=new Set((rs||[]).filter(r=>r.email===myEmail).map(r=>r.help_id));
+  const cnt={};(rs||[]).forEach(r=>cnt[r.help_id]=(cnt[r.help_id]||0)+1);
+  const hl=rows||[],L=$('#hpList');
+  if(!hl.length){L.innerHTML='<div class="ev"><small>Пока тихо — здесь появятся просьбы о помощи и сборы</small></div>';return}
+  L.innerHTML=hl.map(x=>`<div class="ev${x.urgent?' urg':''}"><div class="d">${x.urgent?'🆘 SOS':'Просьба'}</div><h3>${esc(x.title)}</h3>${x.text?`<small>${esc(x.text)}</small>`:''}<button class="hbtn${mine.has(x.id)?' on':''}" data-hp="${x.id}">🤝 ${mine.has(x.id)?'Ты откликнулся':'Могу помочь'}${cnt[x.id]?` · ${cnt[x.id]}`:''}</button></div>`).join('');
+}
+async function loadEvents(){if(!SB)return;const {data}=await SB.from('events').select('*').order('date').limit(30);renderEv(data||[])}
+async function loadMsgs(){if(!SB)return;const {data}=await SB.from('chat').select('*').order('ts',{ascending:true}).limit(100);renderMsgs(data||[])}
+async function loadPhotos(){if(!SB)return;const {data}=await SB.from('photos').select('*').order('ts',{ascending:false}).limit(60);await renderGal(data||[])}
+// --- формы
 $('#evForm').onsubmit=async e=>{e.preventDefault();
   const x={title:$('#evT').value,date:$('#evD').value,place:$('#evP').value};
   e.target.reset();
-  if(db){try{await db.collection('events').add(x)}catch(err){}}else{local.ev.push(x);renderEv(wrap(local.ev))}
+  if(SB){await SB.from('events').insert({...x,by:myEmail})}else{local.ev.push(x);renderEv(local.ev)}
 };
 $('#chForm').onsubmit=async e=>{e.preventDefault();
-  const t=$('#chT').value.trim();if(!t)return;ask();$('#chT').value='';
-  const x={name:nick,text:t.slice(0,500),ts:Date.now()};
-  if(db){try{await db.collection('chat').add(x)}catch(err){}}else{local.ch.push(x);renderMsgs(wrap(local.ch))}
+  const t=$('#chT').value.trim();if(!t)return;$('#chT').value='';
+  const x={name:nick||'Гость',text:t.slice(0,500)};
+  if(SB){await SB.from('chat').insert(x)}else{local.ch.push({...x,ts:Date.now()});renderMsgs(local.ch)}
+};
+$('#hpForm').onsubmit=async e=>{e.preventDefault();
+  if(!SB)return;
+  const r=await SB.from('help').insert({title:$('#hpT').value,text:$('#hpD').value,urgent:$('#hpU').checked,by:myEmail});
+  if(r.error)alert('Не получилось: '+r.error.message);else e.target.reset();
 };
 $('#file').onchange=async e=>{
-  if(!assets){alert('Загрузка фото доступна только участникам с правом записи');return}
+  if(!SB){alert('Загрузка фото появится после подключения клуба (Supabase)');e.target.value='';return}
   for(const f of e.target.files){
-    try{const r=await assets.upload(f);if(db)await db.collection('photos').add({url:r.url,ts:Date.now(),by:ask()})}catch(err){alert('Не удалось загрузить: '+(err.message||err.code))}
+    const ext=(f.name.match(/\.[a-z0-9]+$/i)||[''])[0].toLowerCase();
+    const path=Date.now()+'-'+Math.random().toString(36).slice(2,8)+ext;
+    const {error}=await SB.storage.from('photos').upload(path,f,{contentType:f.type||'image/*'});
+    if(error){alert('Не удалось загрузить: '+error.message);break}
+    await SB.from('photos').insert({path,by:myEmail});
   }
-  e.target.value='';
+  e.target.value='';loadPhotos();
 };
-(async()=>{
-  try{
-    if(!window.claude){fallback();return}
-    db=await claude.use('db');assets=await claude.use('assets');
-    if(!db){fallback();return}
-    db.collection('events').orderBy('date','asc').limit(30).onSnapshot(s=>renderEv(s.docs),()=>{});
-    db.collection('photos').orderBy('ts','desc').limit(60).onSnapshot(s=>renderGal(s.docs),()=>{});
-    db.collection('chat').orderBy('ts','asc').limit(100).onSnapshot(s=>renderMsgs(s.docs),()=>{});
-  }catch(e){db=null;fallback()}
-})();
-renderEv([]);
+document.addEventListener('click',async e=>{
+  const d=e.target.closest('.del');
+  if(d&&SB){await SB.from('events').delete().eq('id',+d.dataset.ev);loadEvents();return}
+  const b=e.target.closest('.hbtn');
+  if(b&&SB){const id=+b.dataset.hp;
+    if(b.classList.contains('on'))await SB.from('help_resp').delete().eq('help_id',id).eq('email',myEmail);
+    else await SB.from('help_resp').insert({help_id:id,email:myEmail});
+    loadHelp()}
+});
+// --- вход/выход и запуск
+const gate=$('#gate');
+function showGate(msg){gate.hidden=false;if(msg)$('#gtMsg').textContent=msg}
+function hideGate(){gate.classList.add('off');setTimeout(()=>{gate.hidden=true;gate.classList.remove('off')},400)}
+async function startClub(session){
+  if(!session){showGate();return}
+  hideGate();
+  myEmail=(session.user.email||'').toLowerCase();
+  const {data:me}=await SB.from('members').select('name').eq('email',myEmail).maybeSingle();
+  if(me&&me.name){nick=me.name;try{localStorage.setItem('nick',nick)}catch(e){}}
+  $('#user').textContent=nick||myEmail;$('#out').hidden=false;
+  if(!me)$('#note').textContent='Вход выполнен, но этой почты пока нет в списке участников — попроси добавить: '+myEmail;
+  loadEvents();loadMsgs();loadPhotos();loadHelp();
+}
+let started=false;
+async function boot(){
+  if(!SB){fallback();return}
+  SB.auth.onAuthStateChange((_ev,s)=>{if(s&&!started){started=true;startClub(s)}});
+  const {data}=await SB.auth.getSession();
+  if(data.session&&!started){started=true;startClub(data.session)}
+  else if(!data.session)showGate();
+}
+$('#gtForm').onsubmit=async e=>{e.preventDefault();
+  const em=$('#gtE').value.trim();if(!em)return;
+  const {error}=await SB.auth.signInWithOtp({email:em,options:{emailRedirectTo:location.origin+location.pathname}});
+  $('#gtMsg').textContent=error?'Не получилось: '+error.message:'Ссылка отправлена на '+em+' — проверь почту и папку «Спам». Действует около часа.';
+};
+$('#out').onclick=async()=>{if(SB)await SB.auth.signOut();location.reload()};
+boot();
+if(SB){
+  SB.channel('df')
+    .on('postgres_changes',{event:'*',schema:'public',table:'chat'},()=>loadMsgs())
+    .on('postgres_changes',{event:'*',schema:'public',table:'events'},()=>loadEvents())
+    .on('postgres_changes',{event:'*',schema:'public',table:'help'},()=>loadHelp())
+    .on('postgres_changes',{event:'*',schema:'public',table:'photos'},()=>loadPhotos())
+    .subscribe();
+}
 
 
 // ---- full-body characters

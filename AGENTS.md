@@ -10,16 +10,19 @@ Dear Friends is a Russian-language illustrated friends-club site. The core visua
 - Entry point: `index.html`. Most styles and code are intentionally inline.
 - The repo root is deployed using GitHub Pages.
 - `CNAME` configures the domain `dearfriends.ru`.
+- Backend: Supabase (auth via magic-link email, Postgres tables with RLS,
+  private `photos` storage bucket, realtime). Config: `SB_URL`/`SB_KEY`
+  constants in `index.html`; schema lives in `supabase/schema.sql`.
 
 ## Requirements for coding agents
 
 1. Preserve all character artwork, names, interactions, and sofa positions unless the user specifically requests a change.
 2. Preserve the existing visual direction, UI language (Russian), animation and responsive behavior.
 3. Prefer incremental edits and reviewable Pull Requests; don't migrate frameworks without instruction.
-4. The original `window.claude`, `claude.use('db')`, and `claude.use('assets')` APIs are not present on GitHub Pages. Avoid promising shared events/chat/gallery until an independent backend exists.
-5. Never commit API tokens, service-role secrets, private credentials or user-uploaded private data.
-6. Do not weaken the site's security or add client-side-only fake authentication. Pages is public; real access controls require an external service.
-7. If building the backend, separate browser-safe public config from secrets; establish authorization, abuse protection, and sensible rate limits.
+4. The legacy `window.claude` / `claude.use('db')` / `claude.use('assets')` APIs are gone; shared data now goes through Supabase. Keep the graceful no-config fallback (demo mode) working when `SB_KEY` is not set.
+5. Never commit API tokens, service-role secrets, private credentials or user-uploaded private data. The anon key is public-safe; the service_role key must never enter the repo.
+6. Do not weaken the site's security: all access control lives in RLS policies (`supabase/schema.sql`), never in client-side checks. The `members` table is the invite allowlist.
+7. When changing tables or policies, update `supabase/schema.sql` in the same change and keep it re-runnable.
 
 ## Check after every change
 

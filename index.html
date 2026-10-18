@@ -213,6 +213,10 @@ label.chk input{min-width:auto;flex:0}
 .hbtn{margin-top:14px;background:var(--line);color:var(--fg);border:0;border-radius:99px;padding:9px 18px;font:500 13px Inter;cursor:pointer;transition:transform .2s}
 .hbtn:hover{transform:scale(1.05)}
 .hbtn.on{background:linear-gradient(135deg,var(--b),var(--a));color:#fff}
+/* ---- моушен: GSAP/Lenis, активен только если CDN загрузился ---- */
+html.fx{scroll-behavior:auto}
+html.fx .hero h1 span{animation:none;opacity:1;transform:none}
+.hero h1 .ltr{display:inline-block}
 </style>
 </head>
 <body>
@@ -283,6 +287,9 @@ label.chk input{min-width:auto;flex:0}
 <p class="note" id="gtMsg"></p></form></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1260,6 +1267,42 @@ if(matchMedia('(hover:hover)').matches){
 new MutationObserver(m=>m.forEach(r=>r.addedNodes.forEach(n=>{if(n.classList&&(n.classList.contains('ev')))n.animate([{opacity:0,transform:'translateY(30px)'},{opacity:1,transform:'none'}],{duration:600,easing:'cubic-bezier(.2,.8,.2,1)',delay:[...n.parentNode.children].indexOf(n)*80,fill:'backwards'})}))).observe($('#evList'),{childList:true});
 
 (()=>{const w=document.querySelector('.scene-wrap');if(w)w.scrollLeft=(w.scrollWidth-w.clientWidth)/2})();
+</script>
+
+<script>
+// ---- stage 2: motion (GSAP + Lenis). Правила — в DESIGN.md.
+// Без CDN или при prefers-reduced-motion блок молча не включается.
+(()=>{
+  if(!window.gsap||!window.ScrollTrigger)return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  gsap.registerPlugin(ScrollTrigger);
+  document.documentElement.classList.add('fx');
+
+  if(window.Lenis){
+    const lenis=new Lenis({anchors:true});
+    lenis.on('scroll',ScrollTrigger.update);
+    gsap.ticker.add(t=>lenis.raf(t*1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // заголовок по буквам вместо CSS-анимации слов
+  document.querySelectorAll('.hero h1 > span').forEach(w=>{
+    w.innerHTML=[...w.textContent].map(c=>`<span class="ltr">${c}</span>`).join('');
+  });
+
+  gsap.timeline({defaults:{ease:'power3.out'}})
+    .from('.hero h1 .ltr',{y:90,opacity:0,rotate:8,duration:.9,stagger:.055})
+    .from('.hero p',{y:30,opacity:0,duration:.7},'-=.4')
+    .from('.hero .btn',{y:20,opacity:0,duration:.6},'-=.45')
+    .from('.scene-wrap',{y:140,opacity:0,duration:1},'-=.5');
+
+  // параллакс блобов и лёгкий дрейф дивана при прокрутке
+  const hero={trigger:'.hero',start:'top top',end:'bottom top',scrub:true};
+  gsap.to('.b1',{yPercent:60,xPercent:12,ease:'none',scrollTrigger:hero});
+  gsap.to('.b2',{yPercent:-40,xPercent:-14,ease:'none',scrollTrigger:{...hero}});
+  gsap.to('.b3',{yPercent:30,ease:'none',scrollTrigger:{...hero}});
+  gsap.to('.scene',{xPercent:-3,ease:'none',scrollTrigger:{...hero}});
+})();
 </script>
 </body>
 </html>

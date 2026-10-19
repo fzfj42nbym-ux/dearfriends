@@ -264,6 +264,18 @@ label.chk input{min-width:auto;flex:0}
   .msgr:not(.list-mode) .msgr-side{display:none}
   #convBack{display:inline-block}
 }
+/* ---- стикеры в чате ---- */
+#stkPanel{padding:10px 14px;border-top:1px solid var(--line);max-height:220px;overflow-y:auto}
+.stk-row{display:flex;gap:6px;flex-wrap:wrap;padding:4px 0}
+.stk-b{background:var(--line);border:0;border-radius:16px;cursor:pointer;padding:4px;transition:transform .15s;font-size:26px;line-height:1.2}
+.stk-b:hover{transform:scale(1.15)}
+.stk-b .mava{background:var(--bg)}
+.stk-hint{color:var(--mut);font-size:11px;margin:2px 0 4px}
+.mm.stk{background:transparent;padding:2px 4px}
+.mm.stk.me{background:transparent;color:var(--fg)}
+.mm.stk .stk-emo{font-size:58px;line-height:1.15}
+.mm.stk .stk-chr-w svg{height:128px;width:auto;display:block}
+.mm.stk b{opacity:.6}
 /* ---- бестиарий ---- */
 .fab{position:fixed;right:22px;bottom:22px;z-index:15;width:56px;height:56px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:24px;cursor:pointer;box-shadow:0 10px 30px -10px rgba(0,0,0,.6);transition:transform .2s}
 .fab:hover{transform:scale(1.12)}
@@ -326,7 +338,8 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 <aside class="msgr-side"><div class="msgr-head"><b>Чаты</b><span><button class="mini" id="newDm" type="button">＋ диалог</button><button class="mini" id="newGrp" type="button">＋ группа</button></span></div><div class="msgr-list" id="convList"></div></aside>
 <div class="msgr-main"><div class="msgr-head"><button class="mini" id="convBack" type="button">← чаты</button><b id="convTitle">—</b></div>
 <div id="msgrMsgs"></div>
-<form class="msgr-form" id="msgrForm"><input id="msgrT" placeholder="Сообщение…" autocomplete="off"><button class="btn" style="margin:0">→</button></form></div>
+<div id="stkPanel" hidden></div>
+<form class="msgr-form" id="msgrForm"><button class="mini" id="stkBtn" type="button" title="Стикеры">🐾</button><input id="msgrT" placeholder="Сообщение…" autocomplete="off"><button class="btn" style="margin:0">→</button></form></div>
 </div>
 <p class="note" id="note"></p></section>
 
@@ -428,6 +441,18 @@ async function loadRx(ids){
   (data||[]).forEach(r=>{const o=msgr.rx[r.message_id]||(msgr.rx[r.message_id]={c:{},mine:new Set()});
     o.c[r.emoji]=(o.c[r.emoji]||0)+1;if(r.email===myEmail)o.mine.add(r.emoji)});
 }
+// ---- стикеры: персонажи и эмодзи прямо в переписке (::sticker::код)
+const STICKER_EMOJI=['❤️','😂','🔥','👍','🎂','🎉','😴','🍺','☕','🍕'];
+function stickerHtml(code){
+  if(code.indexOf('emoji:')===0)return `<span class="stk-emo">${esc(code.slice(6))}</span>`;
+  return `<span class="stk-chr-w">${CHARS[code]?CHARS[code]():'◐'}</span>`;
+}
+function parseSticker(text){
+  const m=/^::sticker::(.+)$/.exec(text||'');if(!m)return null;
+  const code=m[1];
+  const ok=code.indexOf('emoji:')===0?STICKER_EMOJI.includes(code.slice(6)):!!CHARS[code];
+  return ok?code:null;
+}
 function renderMsgs(rows){
   rows=rows||[];const box=$('#msgrMsgs');
   if(!rows.length){box.innerHTML='<div class="ev"><small>Пока пусто — напиши первым →</small></div>';return}
@@ -438,7 +463,9 @@ function renderMsgs(rows){
     const ro=msgr.rx[r.id];
     const rx=!isAll&&ro?Object.entries(ro.c).map(([e,n])=>`<span data-rx="${r.id}|${e}">${e}${n>1?'&nbsp;'+n:''}</span>`).join(''):'';
     const bar=isAll?'':`<span class="rxbar">${RXS.map(e=>`<button type="button" data-sendrx="${r.id}|${e}">${e}</button>`).join('')}</span>`;
-    return `<div class="mm ${me?'me':''}"><b>${avaFor(r)}${esc(who)}</b>${esc(r.text)}${rx?`<span class="rx">${rx}</span>`:''}${bar}</div>`;
+    const code=parseSticker(r.text);
+    const body=code?stickerHtml(code):esc(r.text);
+    return `<div class="mm ${me?'me':''}${code?' stk':''}"><b>${avaFor(r)}${esc(who)}</b>${body}${rx?`<span class="rx">${rx}</span>`:''}${bar}</div>`;
   }).join('');
   box.scrollTop=box.scrollHeight;
 }
@@ -485,6 +512,7 @@ async function openConv(id){
   const c=msgr.convs.find(x=>x.id===id);
   $('#convTitle').textContent=id==='all'?'Все друзья':(c?c.who:'—');
   $('#msgrMsgs').innerHTML='<div class="ev"><small>Загружаю…</small></div>';
+  if(id==='all'&&!SB){renderMsgs(local.ch);return}
   let rows=[];
   if(id==='all'){({data:rows}=await SB.from('chat').select('*').order('ts',{ascending:true}).limit(100))}
   else{({data:rows}=await SB.from('messages').select('*').eq('conversation_id',id).order('ts',{ascending:true}).limit(200))}
@@ -494,10 +522,26 @@ async function openConv(id){
 }
 async function refreshActive(){if(!SB||!msgr.active)return;await openConv(msgr.active)}
 $('#msgrForm').onsubmit=async e=>{e.preventDefault();
-  const t=$('#msgrT').value.trim();if(!t||!SB)return;$('#msgrT').value='';
+  const t=$('#msgrT').value.trim();if(!t)return;$('#msgrT').value='';
+  if(!SB){local.ch.push({name:nick||'Гость',text:t.slice(0,500),ts:Date.now()});if(msgr.active==='all')renderMsgs(local.ch);return}
   if(msgr.active==='all')await SB.from('chat').insert({name:nick||'Гость',text:t.slice(0,500)});
   else await SB.from('messages').insert({conversation_id:msgr.active,author_email:myEmail,author_name:nick||'Гость',text:t.slice(0,500)});
 };
+// панель стикеров: все персонажи + базовые эмодзи
+function stickerPanel(){
+  const ch=Object.keys(CHARS).map(c=>`<button type="button" class="stk-b" data-stk="${c}"><span class="mava">${CHARS[c]()}</span></button>`).join('');
+  const em=STICKER_EMOJI.map(e=>`<button type="button" class="stk-b" data-stk="emoji:${e}">${e}</button>`).join('');
+  return `<div class="stk-hint">Герои клуба — как стикеры:</div><div class="stk-row">${ch}</div><div class="stk-row">${em}</div>`;
+}
+const stkP=$('#stkPanel');
+$('#stkBtn').onclick=()=>{if(stkP.hidden){stkP.innerHTML=stickerPanel();stkP.hidden=false}else stkP.hidden=true};
+stkP.addEventListener('click',e=>{const b=e.target.closest('[data-stk]');if(!b)return;stkP.hidden=true;sendSticker(b.dataset.stk)});
+async function sendSticker(code){
+  const t='::sticker::'+code;
+  if(!SB){local.ch.push({name:nick||'Гость',text:t,ts:Date.now()});if(msgr.active==='all')renderMsgs(local.ch);return}
+  if(msgr.active==='all')await SB.from('chat').insert({name:nick||'Гость',text:t});
+  else await SB.from('messages').insert({conversation_id:msgr.active,author_email:myEmail,author_name:nick||'Гость',text:t});
+}
 $('#convList').addEventListener('click',e=>{const v=e.target.closest('.mv');if(v&&v.dataset.cid)openConv(v.dataset.cid)});
 $('#convBack').onclick=()=>$('#msgr').classList.add('list-mode');
 // --- адресная книга: личный диалог или группа в любом составе
@@ -562,9 +606,9 @@ document.addEventListener('click',e=>{
 });
 async function initMessenger(){
   if(!SB){
-    $('#convList').innerHTML='<div class="mv"><span><small>Мессенджер включится после настройки Supabase: запустите schema.sql и вставьте anon key в index.html</small></span></div>';
-    $('#msgrMsgs').innerHTML='<div class="ev"><small>Здесь появятся переписки — личные и групповые, с персонажами вместо ников и реакциями. Нужен Supabase: schema.sql + anon key.</small></div>';
-    $('#msgrForm').style.display='none';$('#newDm').style.display='none';$('#newGrp').style.display='none';return;
+    renderConvList();await openConv('all');
+    $('#note').textContent='Демо-режим: чат и стикеры работают локально, без синхронизации. Подключите Supabase (schema.sql + ключ) для клуба.';
+    $('#newDm').style.display='none';$('#newGrp').style.display='none';return;
   }
   await membersMap();await loadConvs();await openConv('all');
 }

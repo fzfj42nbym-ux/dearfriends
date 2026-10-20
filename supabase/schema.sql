@@ -273,3 +273,44 @@ do $$ begin
     using (lower(email) = lower(auth.jwt() ->> 'email'))
     with check (lower(email) = lower(auth.jwt() ->> 'email'));
 exception when duplicate_object then null; end $$;
+
+-- ============================================================================
+-- 11. ЧЕЛЛЕНДЖИ: вызовы участникам + отметки «я в деле»
+-- ============================================================================
+create table if not exists public.challenges (
+  id    bigint generated always as identity primary key,
+  title text not null,
+  text  text,
+  until date,
+  by    text,
+  ts    timestamptz not null default now()
+);
+alter table public.challenges enable row level security;
+do $$ begin
+  create policy "chal read" on public.challenges
+    for select to authenticated using (public.is_member());
+  create policy "chal add" on public.challenges
+    for insert to authenticated with check (public.is_member());
+  create policy "chal del own" on public.challenges
+    for delete to authenticated using (by = auth.jwt() ->> 'email');
+exception when duplicate_object then null; end $$;
+
+create table if not exists public.challenge_join (
+  challenge_id bigint not null references public.challenges(id) on delete cascade,
+  email        text not null,
+  primary key (challenge_id, email)
+);
+alter table public.challenge_join enable row level security;
+do $$ begin
+  create policy "cjoin read" on public.challenge_join
+    for select to authenticated using (public.is_member());
+  create policy "cjoin add" on public.challenge_join
+    for insert to authenticated
+    with check (public.is_member() and lower(email) = lower(auth.jwt() ->> 'email'));
+  create policy "cjoin del own" on public.challenge_join
+    for delete to authenticated
+    using (lower(email) = lower(auth.jwt() ->> 'email'));
+exception when duplicate_object then null; end $$;
+
+do $$ begin alter publication supabase_realtime add table public.challenges;     exception when duplicate_object then null; end $$;
+do $$ begin alter publication supabase_realtime add table public.challenge_join; exception when duplicate_object then null; end $$;

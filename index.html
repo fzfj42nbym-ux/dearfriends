@@ -307,7 +307,7 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 </head>
 <body>
 <div id="load"><span>◐</span></div><div id="prog"></div><div id="glow"></div>
-<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#beast" id="beastOpen">Бестиарий</a><a href="#chat">Чат</a><a href="#bday">Дни рождения</a><a href="#help">Помощь</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
+<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#beast" id="beastOpen">Бестиарий</a><a href="#chat">Чат</a><a href="#chal">Челленджи</a><a href="#bday">Дни рождения</a><a href="#help">Помощь</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
 
 <header class="hero">
 <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
@@ -338,6 +338,10 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 <div class="bd-banner rv" id="bdToday" hidden></div>
 <form class="add rv" id="bdForm"><input id="bdDate" type="date" required><button class="btn" style="margin:0">Указать мою дату</button></form>
 <div class="events" id="bdList"></div></section>
+
+<section id="chal"><h2 class="rv">Челленджи</h2>
+<form class="add rv" id="chForm"><input id="chT" placeholder="Вызов (например: неделя без кофе)" required><input id="chD" placeholder="Подробности"><input id="chU" type="date" title="Дедлайн"><button class="btn" style="margin:0">Кинуть вызов</button></form>
+<div class="events" id="chList"></div></section>
 
 <section id="gallery"><h2 class="rv">Галерея</h2>
 <p class="rv" style="margin-bottom:20px"><label class="btn" style="margin:0">+ Загрузить фото<input id="file" type="file" accept="image/*" multiple hidden></label></p>
@@ -518,6 +522,31 @@ $('#bdForm').onsubmit=async e=>{e.preventDefault();
   const {error}=await SB.from('members').update({birthday:$('#bdDate').value}).eq('email',myEmail);
   if(error)alert('Не получилось: '+error.message);else{toast('Дата сохранена 🎂');$('#bdForm').reset();loadBirthdays()}
 };
+// ---- челленджи
+async function loadChals(){
+  if(!SB){$('#chList').innerHTML='<div class="ev"><small>Подключите Supabase — и здесь появятся вызовы</small></div>';return}
+  let rows=null,js=null;
+  try{[{data:rows},{data:js}]=await Promise.all([
+    SB.from('challenges').select('*').order('ts',{ascending:false}).limit(30),
+    SB.from('challenge_join').select('challenge_id,email')])}catch(e){}
+  const mine=new Set((js||[]).filter(r=>r.email===myEmail).map(r=>r.challenge_id));
+  const cnt={};(js||[]).forEach(r=>cnt[r.challenge_id]=(cnt[r.challenge_id]||0)+1);
+  const today=new Date();today.setHours(0,0,0,0);
+  const list=rows||[];
+  $('#chList').innerHTML=list.length?list.map(x=>{
+    let badge='вызов',over=false;
+    if(x.until){const [y,m,d]=x.until.split('-').map(Number);const u=new Date(y,m-1,d);
+      const days=Math.round((u-today)/864e5);
+      if(days>0)badge=u.toLocaleDateString('ru',{day:'numeric',month:'long'})+' · '+days+' дн.';else{badge='время вышло';over=true}}
+    const del=x.by===myEmail?`<button class="del" data-chdel="${x.id}" title="Удалить">✕</button>`:'';
+    return `<div class="ev" style="${over?'opacity:.55':''}"><div class="d">${esc(badge).toUpperCase()}</div><h3>${esc(x.title)}</h3>${x.text?`<small>${esc(x.text)}</small>`:''}<button class="hbtn${mine.has(x.id)?' on':''}" data-ch="${x.id}">🔥 ${mine.has(x.id)?'Ты в деле':'Я в деле'}${cnt[x.id]?' · '+cnt[x.id]:''}</button>${del}</div>`;
+  }).join(''):'<div class="ev"><small>Челленджей пока нет — кинь первый вызов 🔥</small></div>';
+}
+$('#chForm').onsubmit=async e=>{e.preventDefault();
+  if(!SB||!myEmail){toast('Войди в клуб, чтобы кинуть вызов');return}
+  const r=await SB.from('challenges').insert({title:$('#chT').value,text:$('#chD').value,until:$('#chU').value||null,by:myEmail});
+  if(r.error)alert('Не получилось: '+r.error.message);else{e.target.reset();loadChals()}
+};
 async function loadConvs(){
   if(!SB)return;
   const {data:mine}=await SB.from('conversation_members').select('conversation_id').eq('email',myEmail);
@@ -677,10 +706,17 @@ document.addEventListener('click',async e=>{
   const d=e.target.closest('.del');
   if(d&&SB){await SB.from('events').delete().eq('id',+d.dataset.ev);loadEvents();return}
   const b=e.target.closest('.hbtn');
-  if(b&&SB){const id=+b.dataset.hp;
+  if(b&&b.dataset.hp&&SB){const id=+b.dataset.hp;
     if(b.classList.contains('on'))await SB.from('help_resp').delete().eq('help_id',id).eq('email',myEmail);
     else await SB.from('help_resp').insert({help_id:id,email:myEmail});
     loadHelp();return}
+  const cj=e.target.closest('[data-ch]');
+  if(cj&&SB){const id=+cj.dataset.ch;
+    if(cj.classList.contains('on'))await SB.from('challenge_join').delete().eq('challenge_id',id).eq('email',myEmail);
+    else await SB.from('challenge_join').insert({challenge_id:id,email:myEmail});
+    loadChals();return}
+  const cd=e.target.closest('[data-chdel]');
+  if(cd&&SB){await SB.from('challenges').delete().eq('id',+cd.dataset.chdel).eq('by',myEmail);loadChals();return}
   const rx=e.target.closest('[data-sendrx],[data-rx]');
   if(rx&&SB){const [mid,emoji]=rx.dataset.sendrx?rx.dataset.sendrx.split('|'):rx.dataset.rx.split('|');
     const o=msgr.rx[+mid];
@@ -700,12 +736,12 @@ async function startClub(session){
   if(me&&me.name){nick=me.name;try{localStorage.setItem('nick',nick)}catch(e){}}
   $('#user').textContent=nick||myEmail;$('#out').hidden=false;
   if(!me)$('#note').textContent='Вход выполнен, но этой почты пока нет в списке участников — попроси добавить: '+myEmail;
-  loadEvents();loadPhotos();loadHelp();loadBirthdays();initMessenger();
+  loadEvents();loadPhotos();loadHelp();loadBirthdays();loadChals();initMessenger();
 }
 let started=false;
 async function boot(){
   if(!SB){fallback();return}
-  loadBirthdays();
+  loadBirthdays();loadChals();
   SB.auth.onAuthStateChange((_ev,s)=>{if(s&&!started){started=true;startClub(s)}});
   const {data}=await SB.auth.getSession();
   if(data.session&&!started){started=true;startClub(data.session)}
@@ -727,6 +763,8 @@ if(SB){
     .on('postgres_changes',{event:'*',schema:'public',table:'conversation_members'},()=>loadConvs())
     .on('postgres_changes',{event:'*',schema:'public',table:'events'},()=>loadEvents())
     .on('postgres_changes',{event:'*',schema:'public',table:'help'},()=>loadHelp())
+    .on('postgres_changes',{event:'*',schema:'public',table:'challenges'},()=>loadChals())
+    .on('postgres_changes',{event:'*',schema:'public',table:'challenge_join'},()=>loadChals())
     .on('postgres_changes',{event:'*',schema:'public',table:'photos'},()=>loadPhotos())
     .subscribe();
 }

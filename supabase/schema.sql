@@ -261,3 +261,15 @@ do $$ begin alter publication supabase_realtime add table public.conversations; 
 do $$ begin alter publication supabase_realtime add table public.conversation_members; exception when duplicate_object then null; end $$;
 do $$ begin alter publication supabase_realtime add table public.messages;             exception when duplicate_object then null; end $$;
 do $$ begin alter publication supabase_realtime add table public.message_reactions;    exception when duplicate_object then null; end $$;
+
+-- ============================================================================
+-- 10. ДНИ РОЖДЕНИЯ: дата в members + возможность указать свою дату
+-- ============================================================================
+alter table public.members add column if not exists birthday date;
+
+do $$ begin
+  create policy "member update self" on public.members
+    for update to authenticated
+    using (lower(email) = lower(auth.jwt() ->> 'email'))
+    with check (lower(email) = lower(auth.jwt() ->> 'email'));
+exception when duplicate_object then null; end $$;

@@ -276,6 +276,11 @@ label.chk input{min-width:auto;flex:0}
 .mm.stk .stk-emo{font-size:58px;line-height:1.15}
 .mm.stk .stk-chr-w svg{height:128px;width:auto;display:block}
 .mm.stk b{opacity:.6}
+/* ---- дни рождения ---- */
+.bd-banner{background:linear-gradient(135deg,var(--b),var(--a));color:#fff;border-radius:22px;padding:22px 26px;font-size:18px;margin-bottom:20px;animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+.bd-banner b{font:800 20px Unbounded}
+.bd-ava{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--bg);overflow:hidden;vertical-align:middle;margin-right:8px}
+.bd-ava svg{height:30px;width:auto}
 /* ---- бестиарий ---- */
 .fab{position:fixed;right:22px;bottom:22px;z-index:15;width:56px;height:56px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:24px;cursor:pointer;box-shadow:0 10px 30px -10px rgba(0,0,0,.6);transition:transform .2s}
 .fab:hover{transform:scale(1.12)}
@@ -302,7 +307,7 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 </head>
 <body>
 <div id="load"><span>◐</span></div><div id="prog"></div><div id="glow"></div>
-<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#beast" id="beastOpen">Бестиарий</a><a href="#chat">Чат</a><a href="#help">Помощь</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
+<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#beast" id="beastOpen">Бестиарий</a><a href="#chat">Чат</a><a href="#bday">Дни рождения</a><a href="#help">Помощь</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
 
 <header class="hero">
 <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
@@ -328,6 +333,11 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 <section id="help"><h2 class="rv">Помощь и сборы</h2>
 <form class="add rv" id="hpForm"><input id="hpT" placeholder="Что нужно (например: перевезти диван / сбор на подарок)" required><input id="hpD" placeholder="Подробности"><label class="chk"><input id="hpU" type="checkbox"> срочно</label><button class="btn" style="margin:0">Попросить</button></form>
 <div class="events" id="hpList"></div></section>
+
+<section id="bday"><h2 class="rv">Дни рождения</h2>
+<div class="bd-banner rv" id="bdToday" hidden></div>
+<form class="add rv" id="bdForm"><input id="bdDate" type="date" required><button class="btn" style="margin:0">Указать мою дату</button></form>
+<div class="events" id="bdList"></div></section>
 
 <section id="gallery"><h2 class="rv">Галерея</h2>
 <p class="rv" style="margin-bottom:20px"><label class="btn" style="margin:0">+ Загрузить фото<input id="file" type="file" accept="image/*" multiple hidden></label></p>
@@ -480,6 +490,34 @@ async function loadHelp(){
   L.innerHTML=hl.map(x=>`<div class="ev${x.urgent?' urg':''}"><div class="d">${x.urgent?'🆘 SOS':'Просьба'}</div><h3>${esc(x.title)}</h3>${x.text?`<small>${esc(x.text)}</small>`:''}<button class="hbtn${mine.has(x.id)?' on':''}" data-hp="${x.id}">🤝 ${mine.has(x.id)?'Ты откликнулся':'Могу помочь'}${cnt[x.id]?` · ${cnt[x.id]}`:''}</button></div>`).join('');
 }
 async function loadEvents(){if(!SB)return;const {data}=await SB.from('events').select('*').order('date').limit(30);renderEv(data||[])}
+// ---- дни рождения
+async function loadBirthdays(){
+  if(!SB){$('#bdList').innerHTML='<div class="ev"><small>Подключите Supabase — и здесь появятся дни рождения друзей</small></div>';return}
+  const {data}=await SB.from('members').select('email,name,char,birthday');
+  const today=new Date();today.setHours(0,0,0,0);
+  const list=(data||[]).filter(m=>m.birthday).map(m=>{
+    const [y,mo,d]=m.birthday.split('-').map(Number);
+    let next=new Date(today.getFullYear(),mo-1,d);
+    if(next<today)next=new Date(today.getFullYear()+1,mo-1,d);
+    return {...m,next,days:Math.round((next-today)/864e5)};
+  }).sort((a,b)=>a.days-b.days);
+  const tb=$('#bdToday');
+  const todays=list.filter(x=>x.days===0);
+  if(todays.length){tb.hidden=false;
+    tb.innerHTML=todays.map(x=>`🎉 Сегодня день рождения у <b>${esc(x.name||x.email)}</b>! Поздравьте в <a href="#chat" style="color:#fff">чате</a>`).join('');
+  }else tb.hidden=true;
+  $('#bdList').innerHTML=list.length?list.map(x=>{
+    const ava=x.char&&CHARS[x.char]?`<span class="bd-ava">${CHARS[x.char]()}</span>`:'';
+    const d=x.next.toLocaleDateString('ru',{day:'numeric',month:'long'});
+    const badge=x.days===0?'сегодня 🎂':x.days===1?'завтра':'через '+x.days+' дн.';
+    return `<div class="ev"><div class="d">${esc(badge).toUpperCase()}</div><h3>${ava}${esc(x.name||x.email)}</h3><small>${esc(d)}</small></div>`;
+  }).join(''):'<div class="ev"><small>Даты пока не заполнены — укажи свою первым</small></div>';
+}
+$('#bdForm').onsubmit=async e=>{e.preventDefault();
+  if(!SB||!myEmail){toast('Войди в клуб, чтобы указать дату');return}
+  const {error}=await SB.from('members').update({birthday:$('#bdDate').value}).eq('email',myEmail);
+  if(error)alert('Не получилось: '+error.message);else{toast('Дата сохранена 🎂');$('#bdForm').reset();loadBirthdays()}
+};
 async function loadConvs(){
   if(!SB)return;
   const {data:mine}=await SB.from('conversation_members').select('conversation_id').eq('email',myEmail);
@@ -662,11 +700,12 @@ async function startClub(session){
   if(me&&me.name){nick=me.name;try{localStorage.setItem('nick',nick)}catch(e){}}
   $('#user').textContent=nick||myEmail;$('#out').hidden=false;
   if(!me)$('#note').textContent='Вход выполнен, но этой почты пока нет в списке участников — попроси добавить: '+myEmail;
-  loadEvents();loadPhotos();loadHelp();initMessenger();
+  loadEvents();loadPhotos();loadHelp();loadBirthdays();initMessenger();
 }
 let started=false;
 async function boot(){
   if(!SB){fallback();return}
+  loadBirthdays();
   SB.auth.onAuthStateChange((_ev,s)=>{if(s&&!started){started=true;startClub(s)}});
   const {data}=await SB.auth.getSession();
   if(data.session&&!started){started=true;startClub(data.session)}

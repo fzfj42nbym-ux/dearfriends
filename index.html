@@ -281,6 +281,14 @@ label.chk input{min-width:auto;flex:0}
 .bd-banner b{font:800 20px Unbounded}
 .bd-ava{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--bg);overflow:hidden;vertical-align:middle;margin-right:8px}
 .bd-ava svg{height:30px;width:auto}
+/* ---- чеки ---- */
+.rc-sum{font:800 22px Unbounded;color:var(--a)}
+.rc img{max-height:120px;border-radius:12px;cursor:zoom-in;margin-top:10px;display:block}
+.settle{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px 24px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.settle b{font:800 18px Unbounded}
+.settle .s-chip{border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-size:13px;display:inline-flex;align-items:center;gap:8px}
+.settle .pos{color:var(--c)}
+.settle .neg{color:var(--a)}
 /* ---- бестиарий ---- */
 .fab{position:fixed;right:22px;bottom:22px;z-index:15;width:56px;height:56px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:24px;cursor:pointer;box-shadow:0 10px 30px -10px rgba(0,0,0,.6);transition:transform .2s}
 .fab:hover{transform:scale(1.12)}
@@ -307,7 +315,7 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 </head>
 <body>
 <div id="load"><span>◐</span></div><div id="prog"></div><div id="glow"></div>
-<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#beast" id="beastOpen">Бестиарий</a><a href="#chat">Чат</a><a href="#chal">Челленджи</a><a href="#bday">Дни рождения</a><a href="#help">Помощь</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
+<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#beast" id="beastOpen">Бестиарий</a><a href="#chat">Чат</a><a href="#chal">Челленджи</a><a href="#bday">Дни рождения</a><a href="#help">Помощь</a><a href="#rc">Чеки</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
 
 <header class="hero">
 <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
@@ -342,6 +350,11 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 <section id="chal"><h2 class="rv">Челленджи</h2>
 <form class="add rv" id="chForm"><input id="chT" placeholder="Вызов (например: неделя без кофе)" required><input id="chD" placeholder="Подробности"><input id="chU" type="date" title="Дедлайн"><button class="btn" style="margin:0">Кинуть вызов</button></form>
 <div class="events" id="chList"></div></section>
+
+<section id="rc"><h2 class="rv">Чеки</h2>
+<div class="settle rv" id="rcSettle" hidden></div>
+<form class="add rv" id="rcForm"><input id="rcSum" type="number" min="0" step="0.01" placeholder="Сумма, ₽" required><input id="rcNote" placeholder="На что (например: еда на дачу)"><label class="btn" style="margin:0">🧾 Фото чека<input id="rcFile" type="file" accept="image/*" hidden></label><button class="btn" style="margin:0">Добавить</button></form>
+<div class="events" id="rcList"></div></section>
 
 <section id="gallery"><h2 class="rv">Галерея</h2>
 <p class="rv" style="margin-bottom:20px"><label class="btn" style="margin:0">+ Загрузить фото<input id="file" type="file" accept="image/*" multiple hidden></label></p>
@@ -405,7 +418,7 @@ function ask(){if(!nick){nick=(prompt('Как тебя зовут?')||'Гост�
 $('#mq').innerHTML=Array(12).fill('DEAR FRIENDS ✦ ВСТРЕЧИ ✦ ФОТО ✦ ЧАТ ✦ ').join('');
 const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.15});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
-document.addEventListener('click',e=>{if(e.target.matches('.gal img')){$('#lb img').src=e.target.src;$('#lb').classList.add('on')}else if(e.target.closest('#lb'))$('#lb').classList.remove('on')});
+document.addEventListener('click',e=>{if(e.target.matches('.gal img,#rcList img')){$('#lb img').src=e.target.src;$('#lb').classList.add('on')}else if(e.target.closest('#lb'))$('#lb').classList.remove('on')});
 
 // ---- Supabase: вход для своих, общие данные, фото, помощь
 const SB_URL='https://dlvjdnligiizwnpibwin.supabase.co';
@@ -547,6 +560,45 @@ $('#chForm').onsubmit=async e=>{e.preventDefault();
   const r=await SB.from('challenges').insert({title:$('#chT').value,text:$('#chD').value,until:$('#chU').value||null,by:myEmail});
   if(r.error)alert('Не получилось: '+r.error.message);else{e.target.reset();loadChals()}
 };
+// ---- чеки: общие покупки и честный подсчёт
+const fmtRub=x=>(+x||0).toLocaleString('ru-RU',{maximumFractionDigits:0})+' ₽';
+async function loadReceipts(){
+  if(!SB){$('#rcList').innerHTML='<div class="ev"><small>Подключите Supabase — и сюда можно будет складывать чеки общих покупок</small></div>';return}
+  let rows=null;
+  try{({data:rows}=await SB.from('receipts').select('*').order('ts',{ascending:false}).limit(50))}catch(e){}
+  rows=rows||[];
+  const withUrl=await Promise.all(rows.map(async r=>{
+    if(!r.path)return {...r,url:''};
+    const {data}=await SB.storage.from('photos').createSignedUrl(r.path,3600);
+    return {...r,url:data?data.signedUrl:''}}));
+  $('#rcList').innerHTML=withUrl.length?withUrl.map(r=>{
+    const m=msgr.mem.get(r.by);
+    const ava=m&&m.char&&CHARS[m.char]?`<span class="bd-ava">${CHARS[m.char]()}</span>`:'';
+    const del=r.by===myEmail?`<button class="del" data-rcdel="${r.id}" title="Удалить">✕</button>`:'';
+    return `<div class="ev"><div class="rc-sum">${esc(fmtRub(r.amount))}</div><h3>${esc(r.note||'Покупка')}</h3><small>${ava}${esc(m?m.name:r.by)} · ${new Date(r.ts).toLocaleDateString('ru')}</small>${r.url?`<img loading="lazy" src="${r.url}" alt="чек">`:''}${del}</div>`;
+  }).join(''):'<div class="ev"><small>Чеков пока нет — добавь первый после общей покупки</small></div>';
+  const st=$('#rcSettle');
+  const total=withUrl.reduce((s,r)=>s+(+r.amount||0),0);
+  if(!total||!msgr.mem.size){st.hidden=true;return}
+  const share=total/msgr.mem.size;
+  const paid={};withUrl.forEach(r=>{paid[r.by]=(paid[r.by]||0)+(+r.amount||0)});
+  const bal=[...msgr.mem.values()].map(m=>({m,b:(paid[m.email]||0)-share})).sort((x,y)=>y.b-x.b);
+  st.hidden=false;
+  st.innerHTML=`<span>Всего <b>${esc(fmtRub(total))}</b> · на ${msgr.mem.size} чел. — по <b>${esc(fmtRub(share))}</b></span>`+
+    bal.map(({m,b})=>`<span class="s-chip">${esc(m.name||m.email)} <b class="${b>=0?'pos':'neg'}">${b>=0?'+':'−'}${esc(fmtRub(Math.abs(b)))}</b></span>`).join('');
+}
+$('#rcForm').onsubmit=async e=>{e.preventDefault();
+  if(!SB||!myEmail){toast('Войди в клуб, чтобы добавить чек');return}
+  const amount=parseFloat($('#rcSum').value);
+  if(!(amount>0)){toast('Укажи сумму');return}
+  let path=null;const f=$('#rcFile').files[0];
+  if(f){const ext=(f.name.match(/\.[a-z0-9]+$/i)||[''])[0].toLowerCase();
+    path='receipts/'+Date.now()+'-'+Math.random().toString(36).slice(2,8)+ext;
+    const {error}=await SB.storage.from('photos').upload(path,f,{contentType:f.type||'image/*'});
+    if(error){alert('Фото не загрузилось: '+error.message);return}}
+  const r=await SB.from('receipts').insert({amount,note:$('#rcNote').value||null,path,by:myEmail});
+  if(r.error)alert('Не получилось: '+r.error.message);else{e.target.reset();loadReceipts()}
+};
 async function loadConvs(){
   if(!SB)return;
   const {data:mine}=await SB.from('conversation_members').select('conversation_id').eq('email',myEmail);
@@ -677,7 +729,7 @@ async function initMessenger(){
     $('#note').textContent='Демо-режим: чат и стикеры работают локально, без синхронизации. Подключите Supabase (schema.sql + ключ) для клуба.';
     $('#newDm').style.display='none';$('#newGrp').style.display='none';return;
   }
-  await membersMap();await loadConvs();await openConv('all');
+  await membersMap();loadReceipts();await loadConvs();await openConv('all');
 }
 async function loadPhotos(){if(!SB)return;const {data}=await SB.from('photos').select('*').order('ts',{ascending:false}).limit(60);await renderGal(data||[])}
 // --- формы
@@ -717,6 +769,8 @@ document.addEventListener('click',async e=>{
     loadChals();return}
   const cd=e.target.closest('[data-chdel]');
   if(cd&&SB){await SB.from('challenges').delete().eq('id',+cd.dataset.chdel).eq('by',myEmail);loadChals();return}
+  const rd=e.target.closest('[data-rcdel]');
+  if(rd&&SB){await SB.from('receipts').delete().eq('id',+rd.dataset.rcdel).eq('by',myEmail);loadReceipts();return}
   const rx=e.target.closest('[data-sendrx],[data-rx]');
   if(rx&&SB){const [mid,emoji]=rx.dataset.sendrx?rx.dataset.sendrx.split('|'):rx.dataset.rx.split('|');
     const o=msgr.rx[+mid];
@@ -736,12 +790,12 @@ async function startClub(session){
   if(me&&me.name){nick=me.name;try{localStorage.setItem('nick',nick)}catch(e){}}
   $('#user').textContent=nick||myEmail;$('#out').hidden=false;
   if(!me)$('#note').textContent='Вход выполнен, но этой почты пока нет в списке участников — попроси добавить: '+myEmail;
-  loadEvents();loadPhotos();loadHelp();loadBirthdays();loadChals();initMessenger();
+  loadEvents();loadPhotos();loadHelp();loadBirthdays();loadChals();loadReceipts();initMessenger();
 }
 let started=false;
 async function boot(){
   if(!SB){fallback();return}
-  loadBirthdays();loadChals();
+  loadBirthdays();loadChals();loadReceipts();
   SB.auth.onAuthStateChange((_ev,s)=>{if(s&&!started){started=true;startClub(s)}});
   const {data}=await SB.auth.getSession();
   if(data.session&&!started){started=true;startClub(data.session)}
@@ -765,6 +819,7 @@ if(SB){
     .on('postgres_changes',{event:'*',schema:'public',table:'help'},()=>loadHelp())
     .on('postgres_changes',{event:'*',schema:'public',table:'challenges'},()=>loadChals())
     .on('postgres_changes',{event:'*',schema:'public',table:'challenge_join'},()=>loadChals())
+    .on('postgres_changes',{event:'*',schema:'public',table:'receipts'},()=>loadReceipts())
     .on('postgres_changes',{event:'*',schema:'public',table:'photos'},()=>loadPhotos())
     .subscribe();
 }

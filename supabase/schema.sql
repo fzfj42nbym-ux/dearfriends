@@ -314,3 +314,26 @@ exception when duplicate_object then null; end $$;
 
 do $$ begin alter publication supabase_realtime add table public.challenges;     exception when duplicate_object then null; end $$;
 do $$ begin alter publication supabase_realtime add table public.challenge_join; exception when duplicate_object then null; end $$;
+
+-- ============================================================================
+-- 12. ЧЕКИ: общие покупки — фото, сумма, кто платил
+-- ============================================================================
+create table if not exists public.receipts (
+  id     bigint generated always as identity primary key,
+  amount numeric(10,2) not null check (amount >= 0),
+  note   text,
+  path   text,                -- фото чека в приватном бакете photos (receipts/…)
+  by     text not null,
+  ts     bigint not null default (extract(epoch from now()) * 1000)::bigint
+);
+alter table public.receipts enable row level security;
+do $$ begin
+  create policy "rc read" on public.receipts
+    for select to authenticated using (public.is_member());
+  create policy "rc add" on public.receipts
+    for insert to authenticated with check (public.is_member());
+  create policy "rc del own" on public.receipts
+    for delete to authenticated using (by = auth.jwt() ->> 'email');
+exception when duplicate_object then null; end $$;
+
+do $$ begin alter publication supabase_realtime add table public.receipts; exception when duplicate_object then null; end $$;

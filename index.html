@@ -289,6 +289,11 @@ label.chk input{min-width:auto;flex:0}
 .settle .s-chip{border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-size:13px;display:inline-flex;align-items:center;gap:8px}
 .settle .pos{color:var(--c)}
 .settle .neg{color:var(--a)}
+/* ---- фонд ---- */
+.fund-hero{background:linear-gradient(135deg,var(--b),var(--a));color:#fff;border-radius:26px;padding:30px 28px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:6px 28px;align-items:baseline}
+.fund-hero .fv{font:800 clamp(34px,6vw,56px) Unbounded;letter-spacing:-.02em}
+.fund-hero .fl{color:rgba(255,255,255,.75);font-size:14px}
+.fund-row{display:flex;align-items:center;gap:10px}
 /* ---- бестиарий ---- */
 .fab{position:fixed;right:22px;bottom:22px;z-index:15;width:56px;height:56px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:24px;cursor:pointer;box-shadow:0 10px 30px -10px rgba(0,0,0,.6);transition:transform .2s}
 .fab:hover{transform:scale(1.12)}
@@ -315,7 +320,7 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 </head>
 <body>
 <div id="load"><span>◐</span></div><div id="prog"></div><div id="glow"></div>
-<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#beast" id="beastOpen">Бестиарий</a><a href="#chat">Чат</a><a href="#chal">Челленджи</a><a href="#bday">Дни рождения</a><a href="#help">Помощь</a><a href="#rc">Чеки</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
+<nav><span class="logo">◐ dear friends</span><div><a href="#events">События</a><a href="#gallery">Галерея</a><a href="#beast" id="beastOpen">Бестиарий</a><a href="#chat">Чат</a><a href="#chal">Челленджи</a><a href="#fund">Фонд</a><a href="#bday">Дни рождения</a><a href="#help">Помощь</a><a href="#rc">Чеки</a><span id="user"></span><button id="out" hidden title="Выйти">выйти</button><button id="sw" title="Сменить стиль">🎨 Неон</button></div></nav>
 
 <header class="hero">
 <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
@@ -341,6 +346,11 @@ html.fx .hero h1 .grad .ltr{background:linear-gradient(90deg,var(--a),var(--b),v
 <section id="help"><h2 class="rv">Помощь и сборы</h2>
 <form class="add rv" id="hpForm"><input id="hpT" placeholder="Что нужно (например: перевезти диван / сбор на подарок)" required><input id="hpD" placeholder="Подробности"><label class="chk"><input id="hpU" type="checkbox"> срочно</label><button class="btn" style="margin:0">Попросить</button></form>
 <div class="events" id="hpList"></div></section>
+
+<section id="fund"><h2 class="rv">Фонд</h2>
+<div class="fund-hero rv"><div><div class="fl">В ОБЩЕМ КОТЛЕ</div><div class="fv" id="fundTotal">0 ₽</div></div><div><div class="fl">ПОПОЛНЕНИЙ</div><div class="fv" id="fundCount">0</div></div><div><div class="fl">УЧАСТНИКОВ ВНЕСЛИ</div><div class="fv" id="fundPeople">0</div></div></div>
+<form class="add rv" id="fdForm"><input id="fdSum" type="number" min="0" step="0.01" placeholder="Сумма, ₽" required><input id="fdNote" placeholder="Комментарий (на что / повод)"><button class="btn" style="margin:0">Пополнить кассу</button></form>
+<div class="events" id="fdList"></div></section>
 
 <section id="bday"><h2 class="rv">Дни рождения</h2>
 <div class="bd-banner rv" id="bdToday" hidden></div>
@@ -599,6 +609,31 @@ $('#rcForm').onsubmit=async e=>{e.preventDefault();
   const r=await SB.from('receipts').insert({amount,note:$('#rcNote').value||null,path,by:myEmail});
   if(r.error)alert('Не получилось: '+r.error.message);else{e.target.reset();loadReceipts()}
 };
+// ---- фонд: общий котёл
+async function loadFund(){
+  if(!SB){$('#fdList').innerHTML='<div class="ev"><small>Подключите Supabase — и здесь появится общая касса клуба</small></div>';return}
+  let rows=null;
+  try{({data:rows}=await SB.from('fund').select('*').order('ts',{ascending:false}).limit(60))}catch(e){}
+  rows=rows||[];
+  const total=rows.reduce((s,r)=>s+(+r.amount||0),0);
+  $('#fundTotal').textContent=fmtRub(total);
+  $('#fundCount').textContent=rows.length;
+  $('#fundPeople').textContent=new Set(rows.map(r=>r.by)).size;
+  $('#fdList').innerHTML=rows.length?rows.map(r=>{
+    const m=msgr.mem.get(r.by);
+    const ava=m&&m.char&&CHARS[m.char]?`<span class="bd-ava">${CHARS[m.char]()}</span>`:'';
+    const del=r.by===myEmail?`<button class="del" data-fdel="${r.id}" title="Удалить">✕</button>`:'';
+    const d=new Date(r.ts).toLocaleDateString('ru',{day:'numeric',month:'short'});
+    return `<div class="ev"><div class="rc-sum">${esc(fmtRub(r.amount))}</div><h3 class="fund-row">${ava}${esc(m?m.name:r.by)}</h3><small>${r.note?esc(r.note)+' · ':''}${esc(d)}</small>${del}</div>`;
+  }).join(''):'<div class="ev"><small>Касса пуста — сделайте первый взнос 🐷</small></div>';
+}
+$('#fdForm').onsubmit=async e=>{e.preventDefault();
+  if(!SB||!myEmail){toast('Войди в клуб, чтобы пополнить кассу');return}
+  const amount=parseFloat($('#fdSum').value);
+  if(!(amount>0)){toast('Укажи сумму');return}
+  const r=await SB.from('fund').insert({amount,note:$('#fdNote').value||null,by:myEmail});
+  if(r.error)alert('Не получилось: '+r.error.message);else{e.target.reset();loadFund()}
+};
 async function loadConvs(){
   if(!SB)return;
   const {data:mine}=await SB.from('conversation_members').select('conversation_id').eq('email',myEmail);
@@ -771,6 +806,8 @@ document.addEventListener('click',async e=>{
   if(cd&&SB){await SB.from('challenges').delete().eq('id',+cd.dataset.chdel).eq('by',myEmail);loadChals();return}
   const rd=e.target.closest('[data-rcdel]');
   if(rd&&SB){await SB.from('receipts').delete().eq('id',+rd.dataset.rcdel).eq('by',myEmail);loadReceipts();return}
+  const fd=e.target.closest('[data-fdel]');
+  if(fd&&SB){await SB.from('fund').delete().eq('id',+fd.dataset.fdel).eq('by',myEmail);loadFund();return}
   const rx=e.target.closest('[data-sendrx],[data-rx]');
   if(rx&&SB){const [mid,emoji]=rx.dataset.sendrx?rx.dataset.sendrx.split('|'):rx.dataset.rx.split('|');
     const o=msgr.rx[+mid];
@@ -790,12 +827,12 @@ async function startClub(session){
   if(me&&me.name){nick=me.name;try{localStorage.setItem('nick',nick)}catch(e){}}
   $('#user').textContent=nick||myEmail;$('#out').hidden=false;
   if(!me)$('#note').textContent='Вход выполнен, но этой почты пока нет в списке участников — попроси добавить: '+myEmail;
-  loadEvents();loadPhotos();loadHelp();loadBirthdays();loadChals();loadReceipts();initMessenger();
+  loadEvents();loadPhotos();loadHelp();loadBirthdays();loadChals();loadReceipts();loadFund();initMessenger();
 }
 let started=false;
 async function boot(){
   if(!SB){fallback();return}
-  loadBirthdays();loadChals();loadReceipts();
+  loadBirthdays();loadChals();loadReceipts();loadFund();
   SB.auth.onAuthStateChange((_ev,s)=>{if(s&&!started){started=true;startClub(s)}});
   const {data}=await SB.auth.getSession();
   if(data.session&&!started){started=true;startClub(data.session)}
@@ -820,6 +857,7 @@ if(SB){
     .on('postgres_changes',{event:'*',schema:'public',table:'challenges'},()=>loadChals())
     .on('postgres_changes',{event:'*',schema:'public',table:'challenge_join'},()=>loadChals())
     .on('postgres_changes',{event:'*',schema:'public',table:'receipts'},()=>loadReceipts())
+    .on('postgres_changes',{event:'*',schema:'public',table:'fund'},()=>loadFund())
     .on('postgres_changes',{event:'*',schema:'public',table:'photos'},()=>loadPhotos())
     .subscribe();
 }

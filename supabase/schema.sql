@@ -337,3 +337,25 @@ do $$ begin
 exception when duplicate_object then null; end $$;
 
 do $$ begin alter publication supabase_realtime add table public.receipts; exception when duplicate_object then null; end $$;
+
+-- ============================================================================
+-- 13. ФОНД: общий котёл клуба — пополнения и траты
+-- ============================================================================
+create table if not exists public.fund (
+  id     bigint generated always as identity primary key,
+  amount numeric(10,2) not null,
+  note   text,
+  by     text not null,
+  ts     bigint not null default (extract(epoch from now()) * 1000)::bigint
+);
+alter table public.fund enable row level security;
+do $$ begin
+  create policy "fund read" on public.fund
+    for select to authenticated using (public.is_member());
+  create policy "fund add" on public.fund
+    for insert to authenticated with check (public.is_member());
+  create policy "fund del own" on public.fund
+    for delete to authenticated using (by = auth.jwt() ->> 'email');
+exception when duplicate_object then null; end $$;
+
+do $$ begin alter publication supabase_realtime add table public.fund; exception when duplicate_object then null; end $$;

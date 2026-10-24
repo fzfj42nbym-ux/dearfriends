@@ -1,0 +1,34 @@
+{
+  "assetId": "hero-sofa",
+  "stage": "function-review",
+  "approval": {
+    "status": "pending",
+    "approvedBy": "",
+    "approvedAt": ""
+  },
+  "generator": "image_gen.imagegen",
+  "generatorModel": "not exposed by tool",
+  "referenceImage": "/workspace/generated_images/exec-27767405-f325-419d-a3e4-6b9cc2b1918f.png",
+  "sourcePng": "/workspace/generated_images/exec-176e67d9-5635-4b9b-b678-8b675981ea62.png",
+  "packageImage": "images/sofa-reference.png",
+  "prompt": "Create ONE isolated mesh-ready furniture reference image for a real 3D model, using the supplied image ONLY as the color/material/art-direction reference for its burgundy club sofa. Show a single very long, perfectly straight modular sofa, 11.4 metres wide, 1.15 metres deep, 1.05 metres high, designed for exactly SEVENTEEN people: precisely 17 equal individual seat cushions in one continuous horizontal row, and a continuous softly segmented back. Keep the 17 cushions distinct and countable. No corner turn, no chaise, no L-shape. Rich warm deep burgundy/red velvet or subtly textured upholstery, soft seams and rounded restrained armrests at both ends, a low continuous structural base with evenly spaced small dark feet; all support construction physically plausible and every foot complete. Cozy premium stylized PBR furniture, matching the supplied club-room visual language, but neutral even studio lighting, no purple cast, no neon effects. A shallow three-quarter front view with modest elevation shows the full seat depth, full arms, back construction and all feet while keeping the long silhouette readable. Entire sofa fully uncropped with generous clean margins, wide landscape composition, neutral seamless light-gray/white background and a soft grounded contact shadow. Only this one sofa. EXCLUDE all people, characters, faces, silhouettes, pillows, blankets, props, plants, tables, laptop, walls, room scenes, neighboring objects, text, dimensions, logos, labels, watermarks, heavy occlusion, floating parts, cropped ends and fused background. This is an asset reference for mesh modelling, not a screenshot or flat graphic.",
+  "targetDimensionsMeters": [
+    11.4,
+    1.15,
+    1.05
+  ],
+  "targetSeats": 17,
+  "inspection": {
+    "uncropped": true,
+    "isolatedObject": true,
+    "people": false,
+    "roomScene": false,
+    "groundContactVisible": true,
+    "seatCountNote": "Visually consistent with a long row of approximately 17 distinct seats; the definitive 17-seat count must be authored parametrically in the mesh.",
+    "deviations": [
+      "Single shallow front three-quarter image cannot prove the complete rear surface; inspect back separately during mesh intake."
+    ]
+  },
+  "paidMeshySubmitted": false,
+  "spentCredits": 0
+}

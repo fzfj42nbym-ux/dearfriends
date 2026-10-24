@@ -1,0 +1,30 @@
+{
+  "stage": "function-review-preparation",
+  "roomId": "dear-friends-club",
+  "checks": {
+    "authoredSeats": 17,
+    "separateCabinets": 2,
+    "appliedOpeningBooleans": 4,
+    "triangles": 40364,
+    "triangleBudget": 120000,
+    "heroInsideProductionFrame": true,
+    "existingAppUnchanged": true,
+    "reviewHTMLDesktopAndMobile": true,
+    "reviewImagesDecoded": 12,
+    "reviewBrowserJavaScriptErrors": [],
+    "reviewHorizontalOverflow": false,
+    "rows": [
+      9,
+      8
+    ]
+  },
+  "humanApproval": "pending",
+  "functionGate": "blocked",
+  "gateNotes": [
+    "Layout, furniture references and opening schedule have not been explicitly approved.",
+    "The stock skill validator assumes paid Meshy assets. This project currently plans procedural Blender assets with zero external credits; no pricing or paid-service approval has been invented."
+  ],
+  "runtimeExported": false,
+  "productionPublished": false,
+  "revision": "shared-table replacing sofa at explicit userrequest"
+}

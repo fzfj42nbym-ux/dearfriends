@@ -1,0 +1,134 @@
+{
+  "schema": "game-room.room-brief.v1",
+  "roomId": "dear-friends-club",
+  "family": "social-hub",
+  "stage": "function-review-pending",
+  "purpose": "Общая3D-комната клуба: стол,17пустыхстульев, отдельные шкафы, доски, фотографии-заготовки и свет. По прямому указанию владельца подробные модели интерактива и персонажи отложены для отдельных этапов.",
+  "runtimeSurface": "Процедурный Three.js WebGL-просмотр в room3d.html и отдельном окне клуба. Orbit/pan/zoom и готовые ракурсы; нет FPS-перемещения или столкновений персонажа.",
+  "boundsMeters": [
+    14.4,
+    12,
+    3.8
+  ],
+  "coordinateSystem": {
+    "up": "positive-z",
+    "interiorMin": [
+      -7.2,
+      0,
+      0
+    ],
+    "interiorMax": [
+      7.2,
+      12,
+      3.8
+    ],
+    "front": "negative-y",
+    "back": "positive-y",
+    "floorZ": 0,
+    "wallThicknessMeters": 0.22
+  },
+  "hero": {
+    "id": "table",
+    "role": "Sharedtable with17emptychairs reservedfor future separatecharacter models",
+    "reservedBoundsMeters": [
+      11,
+      4.7,
+      1.9
+    ]
+  },
+  "symmetry": {
+    "mode": "none",
+    "order": 1,
+    "appliesTo": [],
+    "exceptions": [
+      "Функциональная композиция намеренно асимметрична: доска анонсов и помощи слева, медиа-шкафы справа, фотографии в центре.",
+      "Центрирование дивана и стола не задаёт двустороннюю симметрию оболочки, проёмов или проходов."
+    ]
+  },
+  "circulation": {
+    "description": "1.8m at table ends; chairs face table. Back-row chair envelope to cabinets2.25m; entrance clear2.6m.",
+    "minimumClearanceMeters": 1.2
+  },
+  "productionCamera": {
+    "viewport": [
+      1440,
+      900
+    ],
+    "location": [
+      0,
+      -4.5,
+      8
+    ],
+    "target": [
+      0,
+      6.8,
+      0.5
+    ],
+    "verticalFovDegrees": 45.23972989608086,
+    "horizontalFovDegrees": 76.09408506365217,
+    "lensMillimeters": 23,
+    "sensorWidthMillimeters": 36,
+    "sensorFit": "HORIZONTAL",
+    "effectiveVerticalSensorMillimeters": 22.5,
+    "derivation": "2 * atan((36mm * 900 / 1440) / (2 * 23mm))",
+    "purpose": "Одинаковая производственная камера для проверки Function; окончательная композиция ещё не утверждена.",
+    "lensMm": 27,
+    "sectionView": "Ceiling and front wall intentionally hidden for elevated camera; not a first-person standing camera."
+  },
+  "performanceBudget": {
+    "maxSceneTriangles": 120000,
+    "maxVLowBytes": 4000000,
+    "maxHighTextureBytes": 24000000,
+    "byteConvention": "decimal bytes",
+    "status": "Целевые ограничения будущего runtime, а не подтверждённый экспорт."
+  },
+  "creditBudget": {
+    "maximumCredits": 0,
+    "approvalRequired": true,
+    "chargedJobsApproved": false,
+    "note": "Платные Meshy-задачи не разрешены и не запускаются. Текущий макет выполнен процедурно в Blender; цены и разрешение на платную генерацию не выдумываются."
+  },
+  "environment": {
+    "type": "none",
+    "identity": "",
+    "source": "",
+    "assignmentKey": "",
+    "note": "HDRI и иной внешний environment не назначены. Окна ведут к экстерьеру без вымышленного фонового окружения."
+  },
+  "artifacts": {
+    "floorPlan": "plans/floor-plan.png",
+    "reflectedCeilingPlan": "plans/reflected-ceiling.png",
+    "planMetadata": "plan-metadata.json",
+    "wallElevations": [
+      "plans/elevation-west.png",
+      "plans/elevation-east.png",
+      "plans/elevation-south.png",
+      "plans/elevation-north.png"
+    ],
+    "visualTarget": "images/selected-room-target.png",
+    "openingContactSheet": "masks/opening-contact-sheet.png",
+    "layoutPerspective": "renders/layout-perspective.png",
+    "productionCamera": "renders/production-camera.png",
+    "engineeringBlend": "review-geometry.blend",
+    "geometryMetadata": "geometry-metadata.json"
+  },
+  "approval": {
+    "function": "pending-user-review",
+    "finalCompositionApproved": false,
+    "paidGenerationApproved": false
+  },
+  "runtimeAuthoringCamera": {
+    "position": [
+      0,
+      8,
+      7
+    ],
+    "target": [
+      0,
+      0.7,
+      -6.8
+    ],
+    "verticalFov": 50,
+    "mobileFit": "Adaptive overview/top radius for viewport aspect"
+  }
+}

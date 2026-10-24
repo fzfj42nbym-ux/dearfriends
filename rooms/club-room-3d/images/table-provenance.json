@@ -1,0 +1,13 @@
+{
+  "generator": "image_gen.imagegen",
+  "prompt": "Create ONE isolated product reference for a future 3D Dear Friends social club: a very long communal dining table, 10.8m length by 2.4m width, tabletop height0.78m. Rounded rectangular walnut tabletop, practical dining height, subtle bevels and warm satin wood, five sturdy paired supports or trestle stations spread under length so no impossible long unsupported span. Entire table full uncropped silhouette and all supporting stations readable in neutral three-quarter elevated view, plain light studio background, even light, stylized premium cozy furniture matching the supplied small walnut table's materials, but THIS IS A LARGE DINING TABLE FOR SEVENTEEN FRIENDS, NOT a low coffee table. Table only, no chairs, no people, no place settings, no objects, no text, no room, no watermarks. Full object with generous margins.\n",
+  "source": "/workspace/generated_images/exec-97f8338b-6017-4285-857a-bab401de97b7.png",
+  "sourceSha256": "1a61c1d2658ef7dd9cd5b0c750a78fd1345ef2d554d6e6a083d7c9e3972fbc0d",
+  "dimensionsMeters": [
+    10.8,
+    2.4,
+    0.78
+  ],
+  "approved": false,
+  "notes": "Engineering mesh remains dimensioned and procedural; this image is a new material/form reference, not a generated mesh."
+}

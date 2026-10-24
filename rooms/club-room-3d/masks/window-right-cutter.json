@@ -1,0 +1,72 @@
+{
+  "schema": "game-room.opening-cutter.v1",
+  "id": "clerestory-3",
+  "kind": "window",
+  "widthMeters": 2.6,
+  "heightMeters": 0.6,
+  "sillMeters": 3.0,
+  "depthMeters": null,
+  "source": "window-right-mask.png",
+  "sourceSha256": "122098bbf6dc3f2bed2526e68bf3d41613cc2ac794f1a61845adbb21c01c5b62",
+  "imageSize": [
+    512,
+    512
+  ],
+  "whitePixelRatio": 0.66015625,
+  "contours": [
+    {
+      "role": "outer",
+      "points": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "traceContours": [
+    {
+      "role": "outer",
+      "points": [
+        [
+          0.0939335,
+          0.9060665
+        ],
+        [
+          0.0939335,
+          0.0939335
+        ],
+        [
+          0.9060665,
+          0.0939335
+        ],
+        [
+          0.9060665,
+          0.9060665
+        ]
+      ]
+    }
+  ],
+  "normalization": {
+    "method": "white-silhouette bounding box to nominal aperture dimensions",
+    "sourceBounds": [
+      0.0939335,
+      0.0939335,
+      0.9060665,
+      0.9060665
+    ],
+    "reason": "Black mask margins are retained-wall diagram padding, not part of declared clear aperture."
+  }
+}

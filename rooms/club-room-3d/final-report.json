@@ -1,0 +1,67 @@
+{
+  "schema": "game-room.room-final-report.v1",
+  "roomId": "dear-friends-club",
+  "gates": {
+    "function": false,
+    "form": false,
+    "runtime": false
+  },
+  "formChecks": {
+    "floorPlanParity": false,
+    "primaryArrival": false,
+    "symmetry": false,
+    "shell": false,
+    "manifold": false,
+    "booleans": false,
+    "collisions": false,
+    "support": false,
+    "attachmentOrientation": false,
+    "ceilingAttachmentOrientation": false,
+    "seatingOrientation": false,
+    "focalDistribution": false,
+    "heroClearance": false,
+    "colonnades": false,
+    "screenClearance": false,
+    "scale": false,
+    "camera": false,
+    "ceilingCoverage": false,
+    "environmentCoverage": false,
+    "provenance": false
+  },
+  "reviewRenders": {
+    "corners": [],
+    "ceiling": [],
+    "environment": {}
+  },
+  "runtimeChecks": {
+    "vlow": false,
+    "textureTiers": false,
+    "lightmap": false,
+    "lightingManifest": false,
+    "performance": false,
+    "browserCapture": "",
+    "errors": []
+  },
+  "postmortem": {
+    "observations": [
+      "Full3D requestedexplicitly; 2.5D notimplemented.",
+      "Current functionalclubapplication remains untouched.",
+      "Functionengineeringlayout is presented for humanreview, not claimedasruntime.",
+      "Owner requested shared table and9+8 seats based on dear-friends-loop.mp4; actual3Dgeometry changed. OriginalSVGs reused separately for seating/motionproof; hand/head rigs notimplemented.",
+      "A real procedural WebGL room is available standalone and inside More→club-room. User explicitly deferred individual interactive models."
+    ],
+    "corrections": [],
+    "remainingRisks": [
+      "Final prop/character assets are deferred by owner.",
+      "Production deployment and final asset/export/lightmap gates are not claimed.",
+      "Software-GPU Chromium verification does not establish real-phone FPS."
+    ]
+  },
+  "proposedLessons": [],
+  "authoringViewer": {
+    "ready": true,
+    "webglVerifiedLocally": true,
+    "productionDeployed": false,
+    "glbExported": false
+  }
+}

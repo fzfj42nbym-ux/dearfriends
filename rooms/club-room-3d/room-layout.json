@@ -1,0 +1,1464 @@
+{
+  "schema": "game-room.layout.v1",
+  "roomId": "dear-friends-club",
+  "units": "meters",
+  "stage": "function-review-pending",
+  "coordinateSystem": {
+    "up": "positive-z",
+    "interiorMin": [
+      -7.2,
+      0,
+      0
+    ],
+    "interiorMax": [
+      7.2,
+      12,
+      3.8
+    ],
+    "front": "negative-y",
+    "back": "positive-y",
+    "floorZ": 0,
+    "wallThicknessMeters": 0.22
+  },
+  "surfaces": [
+    {
+      "id": "room_floor",
+      "kind": "floor",
+      "centerMeters": [
+        0,
+        6,
+        -0.12
+      ],
+      "dimensionsMeters": [
+        14.84,
+        12.44,
+        0.24
+      ],
+      "construction": "procedural-engineering-mesh",
+      "geometryObjectId": "room_floor"
+    },
+    {
+      "id": "wall_west",
+      "kind": "wall",
+      "centerMeters": [
+        -7.31,
+        6,
+        1.9
+      ],
+      "dimensionsMeters": [
+        0.22,
+        12.44,
+        3.8
+      ],
+      "construction": "procedural-engineering-mesh",
+      "geometryObjectId": "wall_west",
+      "openingIds": [
+        "arrival-west"
+      ]
+    },
+    {
+      "id": "wall_east",
+      "kind": "wall",
+      "centerMeters": [
+        7.31,
+        6,
+        1.9
+      ],
+      "dimensionsMeters": [
+        0.22,
+        12.44,
+        3.8
+      ],
+      "construction": "procedural-engineering-mesh",
+      "geometryObjectId": "wall_east"
+    },
+    {
+      "id": "wall_south",
+      "kind": "wall",
+      "centerMeters": [
+        0,
+        -0.11,
+        1.9
+      ],
+      "dimensionsMeters": [
+        14.4,
+        0.22,
+        3.8
+      ],
+      "construction": "procedural-engineering-mesh",
+      "geometryObjectId": "wall_south"
+    },
+    {
+      "id": "wall_north",
+      "kind": "wall",
+      "centerMeters": [
+        0,
+        12.11,
+        1.9
+      ],
+      "dimensionsMeters": [
+        14.4,
+        0.22,
+        3.8
+      ],
+      "construction": "procedural-engineering-mesh",
+      "geometryObjectId": "wall_north",
+      "openingIds": [
+        "clerestory-1",
+        "clerestory-2",
+        "clerestory-3"
+      ]
+    },
+    {
+      "id": "room_ceiling",
+      "kind": "ceiling",
+      "centerMeters": [
+        0,
+        6,
+        3.91
+      ],
+      "dimensionsMeters": [
+        14.84,
+        12.44,
+        0.22
+      ],
+      "construction": "procedural-engineering-mesh",
+      "geometryObjectId": "room_ceiling"
+    },
+    {
+      "id": "hall_floor",
+      "kind": "arrival-apron",
+      "centerMeters": [
+        -8.62,
+        2.1,
+        -0.12
+      ],
+      "dimensionsMeters": [
+        2.62,
+        3.04,
+        0.24
+      ],
+      "construction": "procedural-engineering-mesh",
+      "geometryObjectId": "hall_floor"
+    },
+    {
+      "id": "hall_south",
+      "kind": "hall-wall",
+      "centerMeters": [
+        -8.62,
+        0.69,
+        1.9
+      ],
+      "dimensionsMeters": [
+        2.62,
+        0.22,
+        3.8
+      ],
+      "construction": "procedural-engineering-mesh",
+      "geometryObjectId": "hall_south"
+    },
+    {
+      "id": "hall_north",
+      "kind": "hall-wall",
+      "centerMeters": [
+        -8.62,
+        3.51,
+        1.9
+      ],
+      "dimensionsMeters": [
+        2.62,
+        0.22,
+        3.8
+      ],
+      "construction": "procedural-engineering-mesh",
+      "geometryObjectId": "hall_north"
+    },
+    {
+      "id": "hall_ceiling",
+      "kind": "hall-ceiling",
+      "centerMeters": [
+        -8.62,
+        2.1,
+        3.91
+      ],
+      "dimensionsMeters": [
+        2.62,
+        3.04,
+        0.22
+      ],
+      "construction": "procedural-engineering-mesh",
+      "geometryObjectId": "hall_ceiling"
+    }
+  ],
+  "instances": [
+    {
+      "id": "table-main",
+      "assetId": "table",
+      "positionMeters": [
+        0,
+        6.8,
+        0
+      ],
+      "positionReference": "base-center-on-floor",
+      "dimensionsMeters": [
+        10.8,
+        2.4,
+        0.78
+      ],
+      "rotationDegrees": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "attachmentFace": "floor",
+      "semanticFront": "negative-y",
+      "representation": "procedural-engineering-blockout",
+      "role": "communal-dining-table",
+      "location": [
+        0,
+        6.8,
+        0
+      ],
+      "centerMeters": [
+        0,
+        6.8,
+        0
+      ],
+      "purpose": "Communal dining table, replacing old sofa and low coffee table"
+    },
+    {
+      "id": "cabinet-books-games",
+      "assetId": "cabinet",
+      "positionMeters": [
+        4.1,
+        11.65,
+        0
+      ],
+      "positionReference": "base-center-on-floor",
+      "dimensionsMeters": [
+        1.65,
+        0.5,
+        2.6
+      ],
+      "rotationDegrees": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "attachmentFace": "floor",
+      "semanticFront": "negative-y",
+      "representation": "procedural-engineering-blockout",
+      "categories": [
+        "book",
+        "game"
+      ]
+    },
+    {
+      "id": "cabinet-films-series",
+      "assetId": "cabinet",
+      "positionMeters": [
+        5.95,
+        11.65,
+        0
+      ],
+      "positionReference": "base-center-on-floor",
+      "dimensionsMeters": [
+        1.65,
+        0.5,
+        2.6
+      ],
+      "rotationDegrees": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "attachmentFace": "floor",
+      "semanticFront": "negative-y",
+      "representation": "procedural-engineering-blockout",
+      "categories": [
+        "movie",
+        "series"
+      ]
+    }
+  ],
+  "placedFeatures": [
+    {
+      "id": "announcements-and-help-board",
+      "geometryObjectIds": [
+        "announcements_board"
+      ],
+      "construction": "procedural",
+      "centerMeters": [
+        -5.1,
+        11.94,
+        2.1
+      ],
+      "dimensionsMeters": [
+        3,
+        0.12,
+        1.9
+      ],
+      "attachmentFace": "wall",
+      "semanticFront": "negative-y",
+      "plannedAppSections": [
+        "events",
+        "help"
+      ]
+    },
+    {
+      "id": "photo-wall",
+      "geometryObjectIdPattern": "photo_frame_* / photo_panel_*",
+      "construction": "procedural",
+      "centerMeters": [
+        0,
+        11.98,
+        2.4
+      ],
+      "nominalGroupWidthHeightMeters": [
+        3.4,
+        1.4
+      ],
+      "attachmentFace": "wall",
+      "semanticFront": "negative-y",
+      "plannedAppSections": [
+        "gallery"
+      ]
+    },
+    {
+      "id": "main-sign",
+      "geometryObjectIds": [
+        "club_sign_reserve"
+      ],
+      "construction": "procedural-reserve",
+      "centerMeters": [
+        0,
+        11.95,
+        3.0
+      ],
+      "dimensionsMeters": [
+        3.3,
+        0.065,
+        0.35
+      ],
+      "attachmentFace": "wall",
+      "semanticFront": "negative-y",
+      "finalArtworkAuthored": false
+    },
+    {
+      "id": "arrival-threshold",
+      "geometryObjectIds": [
+        "arrival_threshold"
+      ],
+      "construction": "procedural",
+      "role": "zero-step doorway threshold, not a freestanding ingress prop"
+    }
+  ],
+  "protectedCharacters": {
+    "count": 17,
+    "source": "index.html SEAT renderers",
+    "seating": [
+      {
+        "seat": 1,
+        "actorId": "lena",
+        "row": "far",
+        "anchor": [
+          -4.8,
+          8.7,
+          0.49
+        ],
+        "facing": [
+          0,
+          -1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 2,
+        "actorId": "dima",
+        "row": "far",
+        "anchor": [
+          -3.5999999999999996,
+          8.7,
+          0.49
+        ],
+        "facing": [
+          0,
+          -1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 3,
+        "actorId": "vitya",
+        "row": "far",
+        "anchor": [
+          -2.4,
+          8.7,
+          0.49
+        ],
+        "facing": [
+          0,
+          -1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 4,
+        "actorId": "kazar",
+        "row": "far",
+        "anchor": [
+          -1.2,
+          8.7,
+          0.49
+        ],
+        "facing": [
+          0,
+          -1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 5,
+        "actorId": "alice",
+        "row": "far",
+        "anchor": [
+          0.0,
+          8.7,
+          0.49
+        ],
+        "facing": [
+          0,
+          -1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 6,
+        "actorId": "nikita",
+        "row": "far",
+        "anchor": [
+          1.2,
+          8.7,
+          0.49
+        ],
+        "facing": [
+          0,
+          -1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 7,
+        "actorId": "yulia",
+        "row": "far",
+        "anchor": [
+          2.4,
+          8.7,
+          0.49
+        ],
+        "facing": [
+          0,
+          -1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 8,
+        "actorId": "artemiy",
+        "row": "far",
+        "anchor": [
+          3.5999999999999996,
+          8.7,
+          0.49
+        ],
+        "facing": [
+          0,
+          -1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 9,
+        "actorId": "marina",
+        "row": "far",
+        "anchor": [
+          4.8,
+          8.7,
+          0.49
+        ],
+        "facing": [
+          0,
+          -1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 10,
+        "actorId": "misha",
+        "row": "near",
+        "anchor": [
+          -4.2,
+          4.9,
+          0.49
+        ],
+        "facing": [
+          0,
+          1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 11,
+        "actorId": "diana",
+        "row": "near",
+        "anchor": [
+          -3.0,
+          4.9,
+          0.49
+        ],
+        "facing": [
+          0,
+          1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 12,
+        "actorId": "khariton",
+        "row": "near",
+        "anchor": [
+          -1.7999999999999998,
+          4.9,
+          0.49
+        ],
+        "facing": [
+          0,
+          1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 13,
+        "actorId": "natasha",
+        "row": "near",
+        "anchor": [
+          -0.6,
+          4.9,
+          0.49
+        ],
+        "facing": [
+          0,
+          1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 14,
+        "actorId": "vova",
+        "row": "near",
+        "anchor": [
+          0.6,
+          4.9,
+          0.49
+        ],
+        "facing": [
+          0,
+          1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 15,
+        "actorId": "jenya",
+        "row": "near",
+        "anchor": [
+          1.7999999999999998,
+          4.9,
+          0.49
+        ],
+        "facing": [
+          0,
+          1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 16,
+        "actorId": "sasha",
+        "row": "near",
+        "anchor": [
+          3.0,
+          4.9,
+          0.49
+        ],
+        "facing": [
+          0,
+          1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "seat": 17,
+        "actorId": "kira",
+        "row": "near",
+        "anchor": [
+          4.2,
+          4.9,
+          0.49
+        ],
+        "facing": [
+          0,
+          1,
+          0
+        ],
+        "clearanceBounds": [
+          0.8,
+          0.9,
+          1.6
+        ]
+      }
+    ],
+    "pairsPreserved": true,
+    "frontFacingSVGsPreserved": true,
+    "newOverheadPosesAuthored": false
+  },
+  "heroReserve": {
+    "center": [
+      0,
+      6.8,
+      0.95
+    ],
+    "dimensions": [
+      11,
+      4.7,
+      1.9
+    ]
+  },
+  "circulation": {
+    "entranceClearWidth": 2.6,
+    "hallwayDepth": 2.4,
+    "sideClearance": 1.8,
+    "nearRowToFrontWall": 4.45,
+    "farRowToCabinets": 2.25
+  },
+  "productionCamera": {
+    "viewport": [
+      1440,
+      900
+    ],
+    "location": [
+      0,
+      -4.5,
+      8
+    ],
+    "target": [
+      0,
+      6.8,
+      0.5
+    ],
+    "verticalFovDegrees": 45.23972989608086,
+    "horizontalFovDegrees": 76.09408506365217,
+    "lensMillimeters": 23,
+    "sensorWidthMillimeters": 36,
+    "sensorFit": "HORIZONTAL",
+    "effectiveVerticalSensorMillimeters": 22.5,
+    "derivation": "2 * atan((36mm * 900 / 1440) / (2 * 23mm))",
+    "purpose": "Одинаковая производственная камера для проверки Function; окончательная композиция ещё не утверждена.",
+    "lensMm": 27,
+    "sectionView": "Ceiling and front wall intentionally hidden for elevated camera; not a first-person standing camera."
+  },
+  "runtimeIntent": {
+    "engine": "Three.js / WebGL",
+    "platforms": [
+      "desktop",
+      "mobile"
+    ],
+    "cameraControls": "bounded orbit and touch-pan; no FPS navigation",
+    "preserveDigitalAppNavigation": true,
+    "availableInThisPackage": false
+  },
+  "geometrySource": {
+    "blend": "review-geometry.blend",
+    "metadata": "geometry-metadata.json",
+    "finalComposition": false
+  },
+  "seating": [
+    {
+      "seat": 1,
+      "actorId": "lena",
+      "row": "far",
+      "anchor": [
+        -4.8,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 2,
+      "actorId": "dima",
+      "row": "far",
+      "anchor": [
+        -3.5999999999999996,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 3,
+      "actorId": "vitya",
+      "row": "far",
+      "anchor": [
+        -2.4,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 4,
+      "actorId": "kazar",
+      "row": "far",
+      "anchor": [
+        -1.2,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 5,
+      "actorId": "alice",
+      "row": "far",
+      "anchor": [
+        0.0,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 6,
+      "actorId": "nikita",
+      "row": "far",
+      "anchor": [
+        1.2,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 7,
+      "actorId": "yulia",
+      "row": "far",
+      "anchor": [
+        2.4,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 8,
+      "actorId": "artemiy",
+      "row": "far",
+      "anchor": [
+        3.5999999999999996,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 9,
+      "actorId": "marina",
+      "row": "far",
+      "anchor": [
+        4.8,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 10,
+      "actorId": "misha",
+      "row": "near",
+      "anchor": [
+        -4.2,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 11,
+      "actorId": "diana",
+      "row": "near",
+      "anchor": [
+        -3.0,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 12,
+      "actorId": "khariton",
+      "row": "near",
+      "anchor": [
+        -1.7999999999999998,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 13,
+      "actorId": "natasha",
+      "row": "near",
+      "anchor": [
+        -0.6,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 14,
+      "actorId": "vova",
+      "row": "near",
+      "anchor": [
+        0.6,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 15,
+      "actorId": "jenya",
+      "row": "near",
+      "anchor": [
+        1.7999999999999998,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 16,
+      "actorId": "sasha",
+      "row": "near",
+      "anchor": [
+        3.0,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 17,
+      "actorId": "kira",
+      "row": "near",
+      "anchor": [
+        4.2,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    }
+  ],
+  "proceduralChairInstances": [
+    {
+      "seat": 1,
+      "actorId": "lena",
+      "row": "far",
+      "anchor": [
+        -4.8,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 2,
+      "actorId": "dima",
+      "row": "far",
+      "anchor": [
+        -3.5999999999999996,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 3,
+      "actorId": "vitya",
+      "row": "far",
+      "anchor": [
+        -2.4,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 4,
+      "actorId": "kazar",
+      "row": "far",
+      "anchor": [
+        -1.2,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 5,
+      "actorId": "alice",
+      "row": "far",
+      "anchor": [
+        0.0,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 6,
+      "actorId": "nikita",
+      "row": "far",
+      "anchor": [
+        1.2,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 7,
+      "actorId": "yulia",
+      "row": "far",
+      "anchor": [
+        2.4,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 8,
+      "actorId": "artemiy",
+      "row": "far",
+      "anchor": [
+        3.5999999999999996,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 9,
+      "actorId": "marina",
+      "row": "far",
+      "anchor": [
+        4.8,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 10,
+      "actorId": "misha",
+      "row": "near",
+      "anchor": [
+        -4.2,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 11,
+      "actorId": "diana",
+      "row": "near",
+      "anchor": [
+        -3.0,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 12,
+      "actorId": "khariton",
+      "row": "near",
+      "anchor": [
+        -1.7999999999999998,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 13,
+      "actorId": "natasha",
+      "row": "near",
+      "anchor": [
+        -0.6,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 14,
+      "actorId": "vova",
+      "row": "near",
+      "anchor": [
+        0.6,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 15,
+      "actorId": "jenya",
+      "row": "near",
+      "anchor": [
+        1.7999999999999998,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 16,
+      "actorId": "sasha",
+      "row": "near",
+      "anchor": [
+        3.0,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 17,
+      "actorId": "kira",
+      "row": "near",
+      "anchor": [
+        4.2,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "schema": "game-room.opening-cutter.v1",
+  "id": "arrival-west",
+  "kind": "door",
+  "widthMeters": 2.6,
+  "heightMeters": 2.7,
+  "sillMeters": null,
+  "depthMeters": null,
+  "source": "arrival-mask.png",
+  "sourceSha256": "92733aac34f0f05a1adc3899e7d2762ce23ee657b4fd6fc8e9a3a495d5e965f4",
+  "imageSize": [
+    512,
+    512
+  ],
+  "whitePixelRatio": 0.73632812,
+  "contours": [
+    {
+      "role": "outer",
+      "points": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "traceContours": [
+    {
+      "role": "outer",
+      "points": [
+        [
+          0.0939335,
+          0.9060665
+        ],
+        [
+          0.0939335,
+          0.0
+        ],
+        [
+          0.9060665,
+          0.0
+        ],
+        [
+          0.9060665,
+          0.9060665
+        ]
+      ]
+    }
+  ],
+  "normalization": {
+    "method": "white-silhouette bounding box to nominal aperture dimensions",
+    "sourceBounds": [
+      0.0939335,
+      0.0,
+      0.9060665,
+      0.9060665
+    ],
+    "reason": "Black mask margins are retained-wall diagram padding, not part of declared clear aperture."
+  }
+}

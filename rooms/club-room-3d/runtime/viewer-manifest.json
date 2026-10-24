@@ -1,0 +1,27 @@
+{
+  "stage": "procedural-room-authoring-preview",
+  "entry": "../../room3d.html",
+  "clubSection": "club-room",
+  "engine": {
+    "name": "three",
+    "version": "0.180.0",
+    "license": "MIT",
+    "externalRequests": false
+  },
+  "geometrySource": "geometry-metadata.json",
+  "controls": [
+    "orbit",
+    "pan",
+    "zoom",
+    "keyboard",
+    "6cameraPresets",
+    "day/evening",
+    "contextRetry"
+  ],
+  "charactersPresent": false,
+  "detailedInteractiveModelsPresent": false,
+  "glbExported": false,
+  "paidMeshyCalls": 0,
+  "productionPublished": false,
+  "userInstruction": "ладно давай создадим 3 д комнату а 3 д модели для интерактива сделать позже отдельно с каждой моделью"
+}

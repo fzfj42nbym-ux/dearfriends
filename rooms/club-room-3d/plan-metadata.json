@@ -1,0 +1,107 @@
+{
+  "schema": "game-room.plan-metadata.v1",
+  "roomId": "dear-friends-club",
+  "style": "monochrome-engineering",
+  "projectionSource": "actual-meshes",
+  "layers": [
+    "lower-room",
+    "reflected-ceiling"
+  ],
+  "semanticLabelsOutsideImage": true,
+  "aiInspirationIncluded": false,
+  "aiInspirationReason": "Выбранная художественная комната хранится отдельно как визуальный ориентир; инженерные планы не подменяются Image Gen изображениями.",
+  "coverage": [
+    "room-outline",
+    "cutouts",
+    "openings",
+    "exterior-apron",
+    "main-sign",
+    "ingress-props",
+    "floor-markers",
+    "barriers",
+    "columns",
+    "circulation",
+    "placed-features"
+  ],
+  "coordinateSystem": {
+    "up": "positive-z",
+    "interiorMin": [
+      -7.2,
+      0,
+      0
+    ],
+    "interiorMax": [
+      7.2,
+      12,
+      3.8
+    ],
+    "front": "negative-y",
+    "back": "positive-y",
+    "floorZ": 0,
+    "wallThicknessMeters": 0.22
+  },
+  "sourceBlend": "review-geometry.blend",
+  "geometryMetadata": "geometry-metadata.json",
+  "projections": {
+    "lower-room": {
+      "artifact": "plans/floor-plan.png",
+      "type": "orthographic-top",
+      "source": "actual engineering room meshes",
+      "visibilityException": "Потолок скрыт только для чтения нижнего плана."
+    },
+    "reflected-ceiling": {
+      "artifact": "plans/reflected-ceiling.png",
+      "type": "orthographic-reflected-ceiling",
+      "source": "actual ceiling meshes and wall substrate",
+      "visibilityException": "Нижняя мебель не заменяет и не изображает элементы потолка."
+    }
+  },
+  "wallElevations": [
+    {
+      "wall": "west",
+      "artifact": "plans/elevation-west.png"
+    },
+    {
+      "wall": "east",
+      "artifact": "plans/elevation-east.png"
+    },
+    {
+      "wall": "south",
+      "artifact": "plans/elevation-south.png"
+    },
+    {
+      "wall": "north",
+      "artifact": "plans/elevation-north.png"
+    }
+  ],
+  "coverageDetails": {
+    "room-outline": "Фактические пол, четыре стены и потолок 14.4×12×3.8м; толщина стен0.22м.",
+    "cutouts": "Четыре реальные Boolean-прорези: arrival-west и clerestory-1/2/3.",
+    "openings": "Основной западный проход с нулевым порогом и три верхних окна северной стены; отдельный график в openings.json.",
+    "exterior-apron": "Фактический пол видимого западного входного холла за границей комнаты. Отдельный наружный ландшафт не создан.",
+    "main-sign": "Реальный объём club_sign_reserve; окончательная вывеска не создана.",
+    "ingress-props": "Только существующий arrival_threshold. Стойки, турникеты и дополнительный декор у входа намеренно отсутствуют.",
+    "floor-markers": "Отсутствуют: разметка на полу не требуется выбранной функции комнаты.",
+    "barriers": "Отсутствуют: декоративные заграждения не нужны и не добавлены для заполнения схемы.",
+    "columns": "Отсутствуют: колонн в авторской схеме нет; фиктивная колоннада не создаётся.",
+    "circulation": "Общий стол:1.8м по торцам,2.25м за дальним рядом до шкафов. Рассадка9+8, стулья направлены к столу.",
+    "placed-features": "Общий стол,17стульев,17сервировок, два медиа-шкафа, доска, фоторамки, ноутбук и подвеснойсветильник. Дивана в новойгеометрии нет."
+  },
+  "absentFeatures": {
+    "columns": "intentional absence",
+    "barriers": "intentional absence",
+    "floor-markers": "intentional absence",
+    "freestanding-ingress-props": "intentional absence"
+  },
+  "annotationPolicy": "Размеры, названия зон, отсутствие элементов и семантические подписи находятся в этом JSON и review HTML, вне растровых проекций.",
+  "reviewVisibilityNotes": {
+    "layoutPerspective": [
+      "ceiling",
+      "south wall",
+      "west wall",
+      "hall south wall are hidden only as a documented engineering section"
+    ],
+    "productionCamera": "Возвышенная камера с намеренно скрытыми потолком и передней стеной в макете; не камера стоящего внутри человека."
+  },
+  "functionApprovalPending": true
+}

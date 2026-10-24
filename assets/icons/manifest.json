@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "generated_by": "scripts/export_icons.py",
+  "source": {
+    "file": "index.html",
+    "selector": "svg.icon-defs"
+  },
+  "defaults": {
+    "viewBox": "0 0 24 24",
+    "fill": "none",
+    "stroke": "currentColor",
+    "strokeWidth": 1.8,
+    "strokeLinecap": "round",
+    "strokeLinejoin": "round"
+  },
+  "icons": [
+    {
+      "id": "alert",
+      "label_ru": "Внимание",
+      "category": "state",
+      "symbol_id": "dfi-alert",
+      "file": "alert.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "back",
+      "label_ru": "Назад",
+      "category": "action",
+      "symbol_id": "dfi-back",
+      "file": "back.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "book",
+      "label_ru": "Книга",
+      "category": "media",
+      "symbol_id": "dfi-book",
+      "file": "book.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "borrow",
+      "label_ru": "Взять экземпляр",
+      "category": "action",
+      "symbol_id": "dfi-borrow",
+      "file": "borrow.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "calendar",
+      "label_ru": "Календарь",
+      "category": "section",
+      "symbol_id": "dfi-calendar",
+      "file": "calendar.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "chat",
+      "label_ru": "Чат",
+      "category": "section",
+      "symbol_id": "dfi-chat",
+      "file": "chat.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "check",
+      "label_ru": "Готово",
+      "category": "state",
+      "symbol_id": "dfi-check",
+      "file": "check.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "clock",
+      "label_ru": "Время",
+      "category": "state",
+      "symbol_id": "dfi-clock",
+      "file": "clock.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "close",
+      "label_ru": "Закрыть",
+      "category": "action",
+      "symbol_id": "dfi-close",
+      "file": "close.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "exit",
+      "label_ru": "Выйти",
+      "category": "action",
+      "symbol_id": "dfi-exit",
+      "file": "exit.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "film",
+      "label_ru": "Фильм",
+      "category": "media",
+      "symbol_id": "dfi-film",
+      "file": "film.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "game",
+      "label_ru": "Игра",
+      "category": "media",
+      "symbol_id": "dfi-game",
+      "file": "game.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "grid",
+      "label_ru": "Все разделы",
+      "category": "section",
+      "symbol_id": "dfi-grid",
+      "file": "grid.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "handshake",
+      "label_ru": "Откликнуться",
+      "category": "action",
+      "symbol_id": "dfi-handshake",
+      "file": "handshake.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "heart",
+      "label_ru": "Помощь",
+      "category": "section",
+      "symbol_id": "dfi-heart",
+      "file": "heart.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "info",
+      "label_ru": "Информация",
+      "category": "state",
+      "symbol_id": "dfi-info",
+      "file": "info.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "key",
+      "label_ru": "Вход",
+      "category": "action",
+      "symbol_id": "dfi-key",
+      "file": "key.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "library",
+      "label_ru": "Библиотека",
+      "category": "section",
+      "symbol_id": "dfi-library",
+      "file": "library.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "mail",
+      "label_ru": "Письмо",
+      "category": "action",
+      "symbol_id": "dfi-mail",
+      "file": "mail.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "message-plus",
+      "label_ru": "Новый диалог",
+      "category": "action",
+      "symbol_id": "dfi-message-plus",
+      "file": "message-plus.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "open",
+      "label_ru": "Открыть",
+      "category": "action",
+      "symbol_id": "dfi-open",
+      "file": "open.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "palette",
+      "label_ru": "Оформление",
+      "category": "action",
+      "symbol_id": "dfi-palette",
+      "file": "palette.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "paw",
+      "label_ru": "Бестиарий",
+      "category": "section",
+      "symbol_id": "dfi-paw",
+      "file": "paw.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "pending",
+      "label_ru": "Ожидание",
+      "category": "state",
+      "symbol_id": "dfi-pending",
+      "file": "pending.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "photo",
+      "label_ru": "Галерея",
+      "category": "section",
+      "symbol_id": "dfi-photo",
+      "file": "photo.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "pin",
+      "label_ru": "Место",
+      "category": "state",
+      "symbol_id": "dfi-pin",
+      "file": "pin.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "plus",
+      "label_ru": "Добавить",
+      "category": "action",
+      "symbol_id": "dfi-plus",
+      "file": "plus.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "refresh",
+      "label_ru": "Повторить",
+      "category": "action",
+      "symbol_id": "dfi-refresh",
+      "file": "refresh.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "return",
+      "label_ru": "Вернуть экземпляр",
+      "category": "action",
+      "symbol_id": "dfi-return",
+      "file": "return.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "save",
+      "label_ru": "Сохранить",
+      "category": "action",
+      "symbol_id": "dfi-save",
+      "file": "save.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "search",
+      "label_ru": "Поиск",
+      "category": "action",
+      "symbol_id": "dfi-search",
+      "file": "search.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "send",
+      "label_ru": "Отправить",
+      "category": "action",
+      "symbol_id": "dfi-send",
+      "file": "send.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "shuffle",
+      "label_ru": "Случайный выбор",
+      "category": "action",
+      "symbol_id": "dfi-shuffle",
+      "file": "shuffle.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "star",
+      "label_ru": "Оценка",
+      "category": "state",
+      "symbol_id": "dfi-star",
+      "file": "star.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "sticker",
+      "label_ru": "Стикеры",
+      "category": "action",
+      "symbol_id": "dfi-sticker",
+      "file": "sticker.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "trash",
+      "label_ru": "Удалить",
+      "category": "action",
+      "symbol_id": "dfi-trash",
+      "file": "trash.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "tv",
+      "label_ru": "Сериал",
+      "category": "media",
+      "symbol_id": "dfi-tv",
+      "file": "tv.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "upload",
+      "label_ru": "Загрузить",
+      "category": "action",
+      "symbol_id": "dfi-upload",
+      "file": "upload.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "user",
+      "label_ru": "Участник",
+      "category": "section",
+      "symbol_id": "dfi-user",
+      "file": "user.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "users",
+      "label_ru": "Группа",
+      "category": "action",
+      "symbol_id": "dfi-users",
+      "file": "users.svg",
+      "viewBox": "0 0 24 24"
+    },
+    {
+      "id": "zoom",
+      "label_ru": "Увеличить",
+      "category": "action",
+      "symbol_id": "dfi-zoom",
+      "file": "zoom.svg",
+      "viewBox": "0 0 24 24"
+    }
+  ]
+}

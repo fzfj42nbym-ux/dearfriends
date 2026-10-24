@@ -1,0 +1,40 @@
+{
+  "actors": 17,
+  "farSeats": 9,
+  "nearSeats": 8,
+  "originalSVGs": true,
+  "pause": true,
+  "reducedMotion": true,
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      375,
+      812
+    ]
+  ],
+  "jsErrors": [],
+  "appUnchanged": true,
+  "threeDAnimationImplemented": false,
+  "handAndHeadRigImplemented": "partial2DSVGlayers, notfull3Drig",
+  "motionTestsPassed": 4,
+  "loopSeconds": 12,
+  "originalShapeAttributesPreserved": true,
+  "armGestureActors": [
+    "kazar",
+    "nikita",
+    "marina"
+  ],
+  "phoneGestureActor": "artemiy",
+  "headTilt": true,
+  "manualKeyboardReaction": true,
+  "calmMode": true,
+  "restartWhilePaused": true,
+  "video": {
+    "path": "/workspace/shared/dearfriends-table-loop.mp4",
+    "fps": 24,
+    "durationSeconds": 12
+  }
+}

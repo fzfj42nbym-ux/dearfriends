@@ -1,0 +1,386 @@
+{
+  "schema": "dearfriends.table-animation-brief.v1",
+  "reference": {
+    "filename": "dear-friends-loop.mp4",
+    "sha256": "b5d0df2915d142d92daa25b96b3897ee25cdf73bc6d0c5e10f77c3b9cac741f9",
+    "durationSeconds": 12,
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 30,
+    "observedFramesSeconds": [
+      0.5,
+      3,
+      6
+    ]
+  },
+  "loopSeconds": 12,
+  "actors": [
+    {
+      "seat": 1,
+      "actorId": "lena",
+      "row": "far",
+      "anchor": [
+        -4.8,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 2,
+      "actorId": "dima",
+      "row": "far",
+      "anchor": [
+        -3.5999999999999996,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 3,
+      "actorId": "vitya",
+      "row": "far",
+      "anchor": [
+        -2.4,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 4,
+      "actorId": "kazar",
+      "row": "far",
+      "anchor": [
+        -1.2,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 5,
+      "actorId": "alice",
+      "row": "far",
+      "anchor": [
+        0.0,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 6,
+      "actorId": "nikita",
+      "row": "far",
+      "anchor": [
+        1.2,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 7,
+      "actorId": "yulia",
+      "row": "far",
+      "anchor": [
+        2.4,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 8,
+      "actorId": "artemiy",
+      "row": "far",
+      "anchor": [
+        3.5999999999999996,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 9,
+      "actorId": "marina",
+      "row": "far",
+      "anchor": [
+        4.8,
+        8.7,
+        0.49
+      ],
+      "facing": [
+        0,
+        -1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 10,
+      "actorId": "misha",
+      "row": "near",
+      "anchor": [
+        -4.2,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 11,
+      "actorId": "diana",
+      "row": "near",
+      "anchor": [
+        -3.0,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 12,
+      "actorId": "khariton",
+      "row": "near",
+      "anchor": [
+        -1.7999999999999998,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 13,
+      "actorId": "natasha",
+      "row": "near",
+      "anchor": [
+        -0.6,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 14,
+      "actorId": "vova",
+      "row": "near",
+      "anchor": [
+        0.6,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 15,
+      "actorId": "jenya",
+      "row": "near",
+      "anchor": [
+        1.7999999999999998,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 16,
+      "actorId": "sasha",
+      "row": "near",
+      "anchor": [
+        3.0,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    },
+    {
+      "seat": 17,
+      "actorId": "kira",
+      "row": "near",
+      "anchor": [
+        4.2,
+        4.9,
+        0.49
+      ],
+      "facing": [
+        0,
+        1,
+        0
+      ],
+      "clearanceBounds": [
+        0.8,
+        0.9,
+        1.6
+      ]
+    }
+  ],
+  "artworkSource": "Existing SEAT renderers from index.html; all17originalidentities and pairs retained",
+  "prototypeImplemented": [
+    "original SVG art and17identities",
+    "12-second seamless CSS loop with phase offsets",
+    "subtle head tilt/nod on existing bob groups",
+    "3existing arm+hand+prop groups: kazar,nikita,marina",
+    "artemiy phone-arm movement",
+    "eye blink",
+    "scripted reactions plus keyboard-accessiblemanual trigger",
+    "pause/restart/calm mode",
+    "reduced-motion and hidden-tab suspension"
+  ],
+  "futureLayers": [
+    "real side-view and overhead head poses",
+    "more individual arm gestures for remainingcharacters",
+    "mouth/speech animation",
+    "hand-to-cup orplate contact",
+    "integration withrealWebGLroom andactual authorizedchatpresence"
+  ],
+  "constraints": [
+    "Do not redraw identities from the uploadedvideo.",
+    "Top-down head/bodyposes require adaptation of originalmodels; frontalSVGs are not overheadposes.",
+    "No mouth animation or realtime presence is claimed.",
+    "No public messages, Supabase writes or runtime deployment."
+  ]
+}

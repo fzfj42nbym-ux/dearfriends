@@ -1,0 +1,12 @@
+{
+  "package": "three",
+  "version": "0.180.0",
+  "source": "https://registry.npmjs.org/three/-/three-0.180.0.tgz",
+  "license": "MIT",
+  "changes": "CJS exports wrapped into window.THREE; OrbitControls ESM import/export adapted to the same global for a portable plain HTML viewer. Library logic unchanged. Leading indentation and trailing whitespace normalized for review; upstream package hashes above remain unchanged.",
+  "upstreamHashes": {
+    "build/three.cjs": "2980c5831824f46d79a39a93feb70dd851538ce5b5480a6463883b319022c51f",
+    "examples/jsm/controls/OrbitControls.js": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+    "LICENSE": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+  }
+}

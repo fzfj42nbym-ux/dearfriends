@@ -1,0 +1,18 @@
+{
+  "assetId": "media-cabinet",
+  "generator": "image_gen",
+  "sourcePath": "/workspace/generated_images/exec-a6091b61-b9bc-4aab-8dc6-3fbc8324449c.png",
+  "referencePath": "/workspace/dearfriends/rooms/club-room-3d/images/cabinet-reference.png",
+  "dimensionsMeters": [
+    1.65,
+    0.5,
+    2.6
+  ],
+  "prompt": "Create a single isolated 3D asset reference image for the freestanding walnut media cabinet seen on the right of the supplied club-room reference. This is ONE cabinet only, not a room and not a pair. Real dimensions 1.65 metres wide, 0.50 metres deep, 2.60 metres tall. Preserve its warm walnut wood, subtle rounded/bevelled joinery, cozy sophisticated stylized PBR game-art direction. Four open horizontal cubby shelf compartments with warm recessed LED strips at each shelf top, a continuous solid walnut back, two sturdy side panels, visible supporting plinth fully touching the floor, and one broad BLANK dark top title fascia with absolutely no text or symbols. All four open compartments completely empty: no books, films, ornaments, plants, lamps, glassware, electronics or neighboring furniture. Three-quarter view from slightly above eye level, enough to see the real depth, shelf construction, and side/back thickness. The ENTIRE object and every support must be uncropped, with generous clear margin on every side. Neutral even studio lighting on a plain pale grey or white seamless background; a restrained soft contact shadow. Mesh-ready product visualization, complete plausible silhouette, easily separable from background, restrained detail. No room, no people, no characters, no text, no labels, no logo, no watermark, no dramatic light, no floating/fused geometry, no crop. Keep the cabinets' overall style from the reference but remove all contents.",
+  "approval": {
+    "status": "pending",
+    "approvedBy": "",
+    "approvedAt": ""
+  },
+  "notes": "Function-stage isolated reference only, no mesh generated. Inspected: full silhouette and support visible, blank fascia, four empty open horizontal compartments."
+}

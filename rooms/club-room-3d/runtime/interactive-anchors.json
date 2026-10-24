@@ -1,0 +1,489 @@
+{
+  "schema": "dearfriends.room-anchors.v1",
+  "axes": "Three.js Y-up; Blender[x,y,z] maps to[x,z,-y]",
+  "anchors": [
+    {
+      "id": "table-main",
+      "position": [
+        0,
+        0,
+        -6.8
+      ],
+      "placeholderPrefixes": [
+        "communal_table_",
+        "dining_table_"
+      ],
+      "model": null
+    },
+    {
+      "id": "cabinet-books-games",
+      "position": [
+        4.1,
+        0,
+        -11.65
+      ],
+      "placeholderPrefixes": [
+        "books_"
+      ],
+      "model": null
+    },
+    {
+      "id": "cabinet-films-series",
+      "position": [
+        5.95,
+        0,
+        -11.65
+      ],
+      "placeholderPrefixes": [
+        "cinema_"
+      ],
+      "model": null
+    },
+    {
+      "id": "board-left",
+      "position": [
+        -5.1,
+        2.1,
+        -11.94
+      ],
+      "placeholderPrefixes": [
+        "announcements_",
+        "help_"
+      ],
+      "model": null
+    },
+    {
+      "id": "photo-wall",
+      "position": [
+        0,
+        2.4,
+        -11.98
+      ],
+      "placeholderPrefixes": [
+        "photo_"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-01",
+      "position": [
+        -4.8,
+        0,
+        -8.7
+      ],
+      "seatHeight": 0.49,
+      "actorId": "lena",
+      "facing": [
+        0,
+        0,
+        1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_01",
+        "chair_back_01",
+        "chair_leg_1_-0.24_-0.24",
+        "chair_leg_1_-0.24_0.24",
+        "chair_leg_1_0.24_-0.24",
+        "chair_leg_1_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-02",
+      "position": [
+        -3.5999999999999996,
+        0,
+        -8.7
+      ],
+      "seatHeight": 0.49,
+      "actorId": "dima",
+      "facing": [
+        0,
+        0,
+        1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_02",
+        "chair_back_02",
+        "chair_leg_2_-0.24_-0.24",
+        "chair_leg_2_-0.24_0.24",
+        "chair_leg_2_0.24_-0.24",
+        "chair_leg_2_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-03",
+      "position": [
+        -2.4,
+        0,
+        -8.7
+      ],
+      "seatHeight": 0.49,
+      "actorId": "vitya",
+      "facing": [
+        0,
+        0,
+        1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_03",
+        "chair_back_03",
+        "chair_leg_3_-0.24_-0.24",
+        "chair_leg_3_-0.24_0.24",
+        "chair_leg_3_0.24_-0.24",
+        "chair_leg_3_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-04",
+      "position": [
+        -1.2,
+        0,
+        -8.7
+      ],
+      "seatHeight": 0.49,
+      "actorId": "kazar",
+      "facing": [
+        0,
+        0,
+        1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_04",
+        "chair_back_04",
+        "chair_leg_4_-0.24_-0.24",
+        "chair_leg_4_-0.24_0.24",
+        "chair_leg_4_0.24_-0.24",
+        "chair_leg_4_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-05",
+      "position": [
+        0.0,
+        0,
+        -8.7
+      ],
+      "seatHeight": 0.49,
+      "actorId": "alice",
+      "facing": [
+        0,
+        0,
+        1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_05",
+        "chair_back_05",
+        "chair_leg_5_-0.24_-0.24",
+        "chair_leg_5_-0.24_0.24",
+        "chair_leg_5_0.24_-0.24",
+        "chair_leg_5_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-06",
+      "position": [
+        1.2,
+        0,
+        -8.7
+      ],
+      "seatHeight": 0.49,
+      "actorId": "nikita",
+      "facing": [
+        0,
+        0,
+        1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_06",
+        "chair_back_06",
+        "chair_leg_6_-0.24_-0.24",
+        "chair_leg_6_-0.24_0.24",
+        "chair_leg_6_0.24_-0.24",
+        "chair_leg_6_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-07",
+      "position": [
+        2.4,
+        0,
+        -8.7
+      ],
+      "seatHeight": 0.49,
+      "actorId": "yulia",
+      "facing": [
+        0,
+        0,
+        1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_07",
+        "chair_back_07",
+        "chair_leg_7_-0.24_-0.24",
+        "chair_leg_7_-0.24_0.24",
+        "chair_leg_7_0.24_-0.24",
+        "chair_leg_7_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-08",
+      "position": [
+        3.5999999999999996,
+        0,
+        -8.7
+      ],
+      "seatHeight": 0.49,
+      "actorId": "artemiy",
+      "facing": [
+        0,
+        0,
+        1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_08",
+        "chair_back_08",
+        "chair_leg_8_-0.24_-0.24",
+        "chair_leg_8_-0.24_0.24",
+        "chair_leg_8_0.24_-0.24",
+        "chair_leg_8_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-09",
+      "position": [
+        4.8,
+        0,
+        -8.7
+      ],
+      "seatHeight": 0.49,
+      "actorId": "marina",
+      "facing": [
+        0,
+        0,
+        1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_09",
+        "chair_back_09",
+        "chair_leg_9_-0.24_-0.24",
+        "chair_leg_9_-0.24_0.24",
+        "chair_leg_9_0.24_-0.24",
+        "chair_leg_9_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-10",
+      "position": [
+        -4.2,
+        0,
+        -4.9
+      ],
+      "seatHeight": 0.49,
+      "actorId": "misha",
+      "facing": [
+        0,
+        0,
+        -1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_10",
+        "chair_back_10",
+        "chair_leg_10_-0.24_-0.24",
+        "chair_leg_10_-0.24_0.24",
+        "chair_leg_10_0.24_-0.24",
+        "chair_leg_10_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-11",
+      "position": [
+        -3.0,
+        0,
+        -4.9
+      ],
+      "seatHeight": 0.49,
+      "actorId": "diana",
+      "facing": [
+        0,
+        0,
+        -1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_11",
+        "chair_back_11",
+        "chair_leg_11_-0.24_-0.24",
+        "chair_leg_11_-0.24_0.24",
+        "chair_leg_11_0.24_-0.24",
+        "chair_leg_11_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-12",
+      "position": [
+        -1.7999999999999998,
+        0,
+        -4.9
+      ],
+      "seatHeight": 0.49,
+      "actorId": "khariton",
+      "facing": [
+        0,
+        0,
+        -1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_12",
+        "chair_back_12",
+        "chair_leg_12_-0.24_-0.24",
+        "chair_leg_12_-0.24_0.24",
+        "chair_leg_12_0.24_-0.24",
+        "chair_leg_12_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-13",
+      "position": [
+        -0.6,
+        0,
+        -4.9
+      ],
+      "seatHeight": 0.49,
+      "actorId": "natasha",
+      "facing": [
+        0,
+        0,
+        -1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_13",
+        "chair_back_13",
+        "chair_leg_13_-0.24_-0.24",
+        "chair_leg_13_-0.24_0.24",
+        "chair_leg_13_0.24_-0.24",
+        "chair_leg_13_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-14",
+      "position": [
+        0.6,
+        0,
+        -4.9
+      ],
+      "seatHeight": 0.49,
+      "actorId": "vova",
+      "facing": [
+        0,
+        0,
+        -1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_14",
+        "chair_back_14",
+        "chair_leg_14_-0.24_-0.24",
+        "chair_leg_14_-0.24_0.24",
+        "chair_leg_14_0.24_-0.24",
+        "chair_leg_14_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-15",
+      "position": [
+        1.7999999999999998,
+        0,
+        -4.9
+      ],
+      "seatHeight": 0.49,
+      "actorId": "jenya",
+      "facing": [
+        0,
+        0,
+        -1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_15",
+        "chair_back_15",
+        "chair_leg_15_-0.24_-0.24",
+        "chair_leg_15_-0.24_0.24",
+        "chair_leg_15_0.24_-0.24",
+        "chair_leg_15_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-16",
+      "position": [
+        3.0,
+        0,
+        -4.9
+      ],
+      "seatHeight": 0.49,
+      "actorId": "sasha",
+      "facing": [
+        0,
+        0,
+        -1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_16",
+        "chair_back_16",
+        "chair_leg_16_-0.24_-0.24",
+        "chair_leg_16_-0.24_0.24",
+        "chair_leg_16_0.24_-0.24",
+        "chair_leg_16_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "seat-17",
+      "position": [
+        4.2,
+        0,
+        -4.9
+      ],
+      "seatHeight": 0.49,
+      "actorId": "kira",
+      "facing": [
+        0,
+        0,
+        -1
+      ],
+      "placeholderObjectIds": [
+        "chair_seat_17",
+        "chair_back_17",
+        "chair_leg_17_-0.24_-0.24",
+        "chair_leg_17_-0.24_0.24",
+        "chair_leg_17_0.24_-0.24",
+        "chair_leg_17_0.24_0.24"
+      ],
+      "model": null
+    },
+    {
+      "id": "laptop-chat",
+      "position": [
+        0,
+        0.78,
+        -6.8
+      ],
+      "placeholderPrefixes": [
+        "laptop_"
+      ],
+      "model": null
+    }
+  ],
+  "individualModelsDeferred": true
+}

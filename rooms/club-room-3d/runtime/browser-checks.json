@@ -1,0 +1,49 @@
+{
+  "stage": "room-only-authoring-viewer",
+  "renderer": "Chromium software ANGLE/SwiftShader; notphysicalmobileFPS",
+  "tests": {
+    "runtime": 7,
+    "navigation": 10,
+    "passed": 17
+  },
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      375,
+      812
+    ],
+    [
+      320,
+      568
+    ]
+  ],
+  "networkRequests": [],
+  "javaScriptErrors": [],
+  "geometry": {
+    "overviewTriangles": 6592,
+    "overviewDrawCalls": 22,
+    "insideTriangles": 6616,
+    "insideDrawCalls": 24,
+    "chairs": 17
+  },
+  "screenshots": [
+    "/workspace/shared/room3d-live-375-overview.png",
+    "/workspace/shared/room3d-live-1440-top.png",
+    "/workspace/shared/room3d-live-1440-inside.png",
+    "/workspace/shared/room3d-live-club-window.png"
+  ],
+  "deferred": [
+    "detailedinteractiveprops",
+    "characters",
+    "finalGLBassets",
+    "productiondeployment"
+  ],
+  "sourceHashes": {
+    "assets/room/room3d-viewer.js": "92a2954152d77f1453c256fac35066c233bedd14ceaadf8bffa87049d5a6c8b1",
+    "assets/room/room3d-viewer.css": "89b9b16ffde9a0b473980d8dd6260f20f9afeacf5abd0425250a9ce29e1e3bc2",
+    "room3d.html": "73b9a6bcfd01d87f54e2190e2cf9b51eb0947da2eff7401c5c128a26ba5fde77"
+  }
+}

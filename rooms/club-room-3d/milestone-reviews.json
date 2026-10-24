@@ -1,0 +1,40 @@
+{
+  "schema": "game-room.milestone-reviews.v1",
+  "roomId": "dear-friends-club",
+  "function": {
+    "status": "pending",
+    "approvedBy": "",
+    "approvedAt": "",
+    "evidence": [
+      "plans/floor-plan.png",
+      "plans/reflected-ceiling.png",
+      "renders/production-camera.png",
+      "renders/material-direction-preview.png",
+      "images/props-contact-sheet.html",
+      "masks/opening-contact-sheet.png"
+    ],
+    "strangestElement": "The long communal table has17 real seats in9+8 arrangement. Original front-view SVG art needs separate top-view poses for an exact overhead animation like the reference.",
+    "notes": "User explicitly requested removal of the sofa and shared-table seating based on dear-friends-loop.mp4. Updated layout is pending review; no final composition or runtime approval inferred."
+  },
+  "form": {
+    "status": "pending",
+    "approvedBy": "",
+    "approvedAt": "",
+    "evidence": [],
+    "strangestElement": "",
+    "notes": ""
+  },
+  "runtime": {
+    "status": "pending",
+    "approvedBy": "",
+    "approvedAt": "",
+    "evidence": [],
+    "strangestElement": "",
+    "notes": ""
+  },
+  "roomPrototypeAuthorization": {
+    "instruction": "Сначала создать3Dкомнату, моделиинтерактивапозжеотдельно",
+    "by": "user",
+    "scope": "Procedural room foundation and camera only; no approval of final per-prop models or production deployment inferred."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "dearfriends.table-motion.v1",
+  "loopSeconds": 12,
+  "phaseRule": "-index*12/17 seconds",
+  "headGroup": ".bob",
+  "eyeGroup": ".eye",
+  "armRigs": {
+    "kazar": {
+      "startChild": 13,
+      "endChildExclusive": 15,
+      "expectedPathPrefix": "M140 168",
+      "pivot": "140px 168px",
+      "angle": "-14deg"
+    },
+    "nikita": {
+      "startChild": 10,
+      "endChildExclusive": 13,
+      "expectedPathPrefix": "M46 198",
+      "pivot": "46px 198px",
+      "angle": "6deg"
+    },
+    "marina": {
+      "startChild": 19,
+      "endChildExclusive": 22,
+      "expectedPathPrefix": "M66 168",
+      "pivot": "66px 168px",
+      "angle": "5deg"
+    }
+  },
+  "phoneArmActor": "artemiy",
+  "originalArtworkPreserved": true,
+  "newHandOrFacePaths": false,
+  "automaticReactionsAreFictional": true,
+  "threeDRuntime": false
+}

@@ -1,0 +1,12 @@
+FAIL: props.json: generation must use Meshy model meshy-5
+FAIL: props.json: current official Meshy pricing verification is required
+FAIL: props.json: positive creditsPerTexturedTask is required
+FAIL: props.json: hardCreditCeiling must be positive and no greater than the room credit budget
+FAIL: prop table: reference image requires explicit approval
+FAIL: prop cabinet: reference image requires explicit approval
+FAIL: opening arrival-west: mask/dimensions are not approved
+FAIL: opening clerestory-1: mask/dimensions are not approved
+FAIL: opening clerestory-2: mask/dimensions are not approved
+FAIL: opening clerestory-3: mask/dimensions are not approved
+FAIL: Function gate: explicit approval is required
+FAIL: final-report.json: gates.function must be true

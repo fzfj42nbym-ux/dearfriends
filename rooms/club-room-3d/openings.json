@@ -1,0 +1,93 @@
+{
+  "schema": "game-room.opening-schedule.v1",
+  "roomId": "dear-friends-club",
+  "primaryArrival": {
+    "openingId": "arrival-west",
+    "exception": ""
+  },
+  "wallThicknessMeters": 0.22,
+  "approvalStatus": "pending-user-function-review",
+  "openings": [
+    {
+      "id": "arrival-west",
+      "kind": "door",
+      "wallId": "wall_west",
+      "centerMeters": [
+        -7.2,
+        2.1,
+        1.35
+      ],
+      "widthMeters": 2.6,
+      "heightMeters": 2.7,
+      "thresholdMeters": 0,
+      "revealMeters": 0.22,
+      "destination": "Видимый западный входной холл с глубиной прохода2.4м; это действующий прямоугольный вход, а не ложная арка.",
+      "destinationId": "west-arrival-hall",
+      "visibleHallDepthMeters": 2.4,
+      "mask": "masks/arrival-mask.png",
+      "cutter": "masks/arrival-cutter.json",
+      "approved": false,
+      "approvalStatus": "pending-user-review"
+    },
+    {
+      "id": "clerestory-1",
+      "kind": "window",
+      "wallId": "wall_north",
+      "centerMeters": [
+        -4.6,
+        12,
+        3.3
+      ],
+      "widthMeters": 2.6,
+      "heightMeters": 0.6,
+      "sillMeters": 3.0,
+      "revealMeters": 0.22,
+      "destination": "Экстерьер за северной стеной; environment/HDRI не назначен.",
+      "destinationId": "exterior-unassigned",
+      "mask": "masks/window-left-mask.png",
+      "cutter": "masks/window-left-cutter.json",
+      "approved": false,
+      "approvalStatus": "pending-user-review"
+    },
+    {
+      "id": "clerestory-2",
+      "kind": "window",
+      "wallId": "wall_north",
+      "centerMeters": [
+        0,
+        12,
+        3.3
+      ],
+      "widthMeters": 2.8,
+      "heightMeters": 0.6,
+      "sillMeters": 3.0,
+      "revealMeters": 0.22,
+      "destination": "Экстерьер за северной стеной; environment/HDRI не назначен.",
+      "destinationId": "exterior-unassigned",
+      "mask": "masks/window-center-mask.png",
+      "cutter": "masks/window-center-cutter.json",
+      "approved": false,
+      "approvalStatus": "pending-user-review"
+    },
+    {
+      "id": "clerestory-3",
+      "kind": "window",
+      "wallId": "wall_north",
+      "centerMeters": [
+        4.6,
+        12,
+        3.3
+      ],
+      "widthMeters": 2.6,
+      "heightMeters": 0.6,
+      "sillMeters": 3.0,
+      "revealMeters": 0.22,
+      "destination": "Экстерьер за северной стеной; environment/HDRI не назначен.",
+      "destinationId": "exterior-unassigned",
+      "mask": "masks/window-right-mask.png",
+      "cutter": "masks/window-right-cutter.json",
+      "approved": false,
+      "approvalStatus": "pending-user-review"
+    }
+  ]
+}
